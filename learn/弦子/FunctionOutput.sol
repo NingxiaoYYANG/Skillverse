@@ -19,12 +19,14 @@ contract FunctionOutput{
         _array = [uint256(3),2,1];
     }
 
-    // 读取所有返回值：声明变量，并且将要赋值的变量用,隔开，按顺序排列
     function readReturn() public pure{
+        // 读取所有返回值：声明变量，并且将要赋值的变量用,隔开，按顺序排列
         uint256 _number;
         bool _bool;
         uint256[3] memory _array;
         (_number, _bool, _array) = returnNamed();
+        // 读取部分返回值：声明要读取的返回值对应的变量，不读取的留空
+        (, _bool, ) = returnNamed();
     }
 
 }
