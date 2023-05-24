@@ -8,6 +8,7 @@ contract SkillContract {
         uint skillID;
         uint skillLevel;
         string skillDescription;
+        uint skillPoint;
         bool isLearned;
     }
 
@@ -38,9 +39,9 @@ contract SkillContract {
 
     // 添加新Skill
     // 需要根据skillLevel进行sort
-    function addSkill(uint _monsterID, uint _skillLevel, uint _skillID, string memory _skillDescription) public {
+    function addSkill(uint _monsterID, uint _skillLevel, uint _skillID, string memory _skillDescription, uint _skillPoint) public {
         Monster storage monster = monsters[_monsterID];
-        monster.skills.push(Skill(_skillID, _skillLevel, _skillDescription, false));
+        monster.skills.push(Skill(_skillID, _skillLevel, _skillDescription, _skillPoint, false));
     }
 
     // 学会skill
