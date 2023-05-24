@@ -23,6 +23,12 @@ contract SkillContract {
     // 其他合约可以通过指定怪物的 ID 来获取对应的 Monster
     mapping(uint => Monster) public monsters;
 
+    // 测试，查看skills里的所有技能
+    function getMonsterSkills(uint _monsterID) public view returns (Skill[] memory) {
+        return monsters[_monsterID].skills;
+    }
+
+
     // 添加新Monster
     function addMonster(uint _monsterID, string memory _monsterName) public {
         Monster storage newMonster = monsters[_monsterID];
