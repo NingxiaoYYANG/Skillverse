@@ -6,6 +6,7 @@ contract SkillContract {
     // 设置Monster的技能initial
     struct Skill{
         uint skillID;
+        uint skillLevel;
         string skillDescription;
         bool isLearned;
     }
@@ -30,21 +31,22 @@ contract SkillContract {
     }
 
     // 添加新Skill
-    function addSkill(uint _monsterID, uint _skillID, string memory _skillDescription) public {
+    // 需要根据skillLevel进行sort
+    function addSkill(uint _monsterID, uint _skillLevel, uint _skillID, string memory _skillDescription) public {
         Monster storage monster = monsters[_monsterID];
-        monster.skills.push(Skill(_skillID, _skillDescription, false));
+        monster.skills.push(Skill(_skillID, _skillLevel, _skillDescription, false));
     }
 
-    // 判定是否学会skill
-    // 需要更改
+    // 学会skill
     function learnSkill(uint _monsterID, uint _skillID) public {
+        // 找到该技能所属的Monster先
+        // skillID不在Monster的skills范围内，失效
         Monster storage monster = monsters[_monsterID];
-        for (uint i = 0; i < monster.skills.length; i++) {
-            if (monster.skills[i].skillID == _skillID) {
-                monster.skills[i].isLearned = true;
-                break;
-            }
-        }
+        require(_skillID < monster.skills.length, "Invalid skill id");
+        
+        // 再找到Monster里的具体skill，判定为true
+        Skill storage skill = monster.skills[_skillID];
+        skill.isLearned = true;
     }
 
 }
