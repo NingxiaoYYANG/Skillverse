@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.19;
+
+import "./ownable.sol";
 
 // 处理AI返回的结果，并将结果返回给前端
-contract SkillContract {
+contract SkillContract is Ownable{
 
     // 监听事件给前端
     event NewMonster(uint id, string name);
@@ -10,9 +12,9 @@ contract SkillContract {
     // 设置Monster的技能initial
     struct Skill{
         uint skillID;
-        uint skillLevel;
+        uint32 skillPoint;
+        uint32 skillLevel;
         string skillDescription;
-        uint skillPoint;
         bool isLearned;
     }
 
@@ -40,7 +42,7 @@ contract SkillContract {
     }
 
     // 添加新Monster
-    function addMonster(uint _monsterID, string storage _monsterName) private {
+    function addMonster(uint _monsterID, string storage _monsterName) internal {
         Monster storage newMonster = monsters[_monsterID];
         // 把生成的monster加进用户地址
         monsterToOwner[_monsterID] = msg.sender;
@@ -64,9 +66,9 @@ contract SkillContract {
     }
 
     // 添加新Skill
-    function addSkill(uint _monsterID, uint _skillLevel, uint _skillID, string storage _skillDescription, uint _skillPoint) private {
+    function addSkill(uint _monsterID, uint32 _skillLevel, uint _skillID, uint32 _skillPoint, string storage _skillDescription) internal {
         Monster storage monster = monsters[_monsterID];
-        monster.skills.push(Skill(_skillID, _skillLevel, _skillDescription, _skillPoint, false));
+        monster.skills.push(Skill(_skillID, _skillLevel,  _skillPoint, _skillDescription, false));
     }
 
     // 学会skill
