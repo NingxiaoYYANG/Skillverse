@@ -39,12 +39,13 @@ contract SkillContract {
         return monsters[_monsterID].skills;
     }
 
-    // 添加新Monster
+    // 添加新Monster,
     function addMonster(uint _monsterID, string storage _monsterName) private {
         Monster storage newMonster = monsters[_monsterID];
         // 把生成的monster加进用户地址
         monsterToOwner[_monsterID] = msg.sender;
         ownerMonsterCount[msg.sender]++;
+        
         // 用户最多生成5个monsters
         require(ownerMonsterCount[msg.sender] <= 5);
         
