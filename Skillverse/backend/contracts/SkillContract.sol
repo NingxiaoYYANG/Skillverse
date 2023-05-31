@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.9;
 
 import "./ownable.sol";
 
@@ -25,10 +25,8 @@ contract SkillContract is Ownable{
         Skill[] skills;
     }
 
-    // key为monsterID，value为Monster
-    // 创造一个map记录所有monsters
-    // 其他合约可以通过指定怪物的 ID 来获取对应的 Monster
-    mapping(uint => Monster) private monsters;
+    // 创造一个array记录所有monsters
+    Monster[] public monsters;
 
     // 记录怪物ID拥有者的地址
     mapping(uint => address) public monsterToOwner;
@@ -43,9 +41,12 @@ contract SkillContract is Ownable{
 
     // 添加新Monster
     function addMonster(uint _monsterID, string storage _monsterName) internal {
-        Monster storage newMonster = monsters[_monsterID];
+        Monster memory newMonster = Monster(_monsterID, _monsterName, new Skill[](0));
+        uint id = monsters.length;
+        monsters.push(newMonster);
+
         // 把生成的monster加进用户地址
-        monsterToOwner[_monsterID] = msg.sender;
+        monsterToOwner[id] = msg.sender;
         ownerMonsterCount[msg.sender]++;
 
         // 检查用户有无重复生成相同的monster(待更新)
@@ -58,9 +59,6 @@ contract SkillContract is Ownable{
         require(ownerMonsterCount[msg.sender] <= 5);
         
 
-        
-        newMonster.monsterID = _monsterID;
-        newMonster.monsterName = _monsterName;
         
         emit NewMonster(_monsterID, _monsterName);
     }
@@ -82,5 +80,18 @@ contract SkillContract is Ownable{
         Skill storage skill = monster.skills[_skillID];
         skill.isLearned = true;
     }
+
+    // 查看用户全部monsters
+    function getMonstersByOwner(address _owner) external view returns (uint[] memory) {
+    uint[] memory result = new uint[](ownerMonsterCount[_owner]);
+    uint counter = 0;
+        for (uint i = 0; i < monsters.length; i++) {
+            if (monsterToOwner[i] == _owner) {
+                result[counter] = i;
+                counter++;
+            }
+        }
+    return result;
+}
 
 }
