@@ -1,18 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Skillverse front-end</title>
-        <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
         <!-- Include web3.js here -->
-        <script language="javascript" type="text/javascript" src="web3.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.1/web3.min.js"
+            integrity="sha512-GKw4QT/RccGJIwQxY3MhyiQ5pHrhQ8SuKFEafV+WcpOvtz7iYFQuQGFCvmGlHLctJTe8KrWU1FqvF7VOkEAJtw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
         <!-- Include abi.js here-->
         <script language="javascript" type="text/javascript" src="abi.js"></script>
-    </head>
-    <body>
-        <div id="monsters"></div>
 
-        <script>
+
+        <!-- <div id="monsters"></div> -->
+
+        <!-- CSS STYLES -->
+        <link rel="stylesheet" href="index.css" />
+        <title>Web3 Login</title>
+        </head>
+        <body>
+
+            <!-- LOGIN SECTION -->
+            <section class="login-section">
+            <button class="login-btn">🔓 Log in with Web3</button>
+            <span class="instruction">
+                Ensure to have an Ethereum based wallet installed i.e MetaMask
+            </span>
+            </section>
+
+            <!-- DASHBOARD SECTION -->
+            <section class="dashboard-section">
+            <h2 class="wallet-status">Wallet Connected! 🤝</h2>
+            <h3 class="wallet-address-heading">
+                ETH Wallet Address:
+                <span class="wallet-address"></span>
+            </h3>
+            <h3 class="wallet-balance-heading">
+            ETH Balance:
+                <span class="wallet-balance"></span>
+            </h3>
+            <button class="logout-btn">🔐 Log out</button>
+            </section>
+        </body>
+
+        <!-- SCRIPT -->
+        <script src="./index.js"></script>
+        <!-- <script>
             var monsters;
             var userAccount;
             function startApp() {
@@ -101,6 +139,5 @@
                 startAPP()
                 
             })
-        </script>
-    </body>
+        </script> -->
 </html>
