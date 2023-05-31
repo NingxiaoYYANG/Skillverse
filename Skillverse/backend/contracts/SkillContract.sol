@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
+import "./ownable.sol";
+
 // 处理AI返回的结果，并将结果返回给前端
-contract SkillContract {
+contract SkillContract is Ownable{
 
     // 监听事件给前端
     event NewMonster(uint id, string name);
@@ -10,9 +12,9 @@ contract SkillContract {
     // 设置Monster的技能initial
     struct Skill{
         uint skillID;
-        uint skillLevel;
+        uint32 skillPoint;
+        uint32 skillLevel;
         string skillDescription;
-        uint skillPoint;
         bool isLearned;
     }
 
@@ -23,10 +25,8 @@ contract SkillContract {
         Skill[] skills;
     }
 
-    // key为monsterID，value为Monster
-    // 创造一个map记录所有monsters
-    // 其他合约可以通过指定怪物的 ID 来获取对应的 Monster
-    mapping(uint => Monster) private monsters;
+    // 创造一个array记录所有monsters
+    Monster[] public monsters;
 
     // 记录怪物ID拥有者的地址
     mapping(uint => address) public monsterToOwner;
@@ -40,10 +40,13 @@ contract SkillContract {
     }
 
     // 添加新Monster,
-    function addMonster(uint _monsterID, string storage _monsterName) private {
-        Monster storage newMonster = monsters[_monsterID];
+    function addMonster(uint _monsterID, string storage _monsterName) internal {
+        Monster memory newMonster = Monster(_monsterID, _monsterName, new Skill[](0));
+        uint id = monsters.length;
+        monsters.push(newMonster);
+
         // 把生成的monster加进用户地址
-        monsterToOwner[_monsterID] = msg.sender;
+        monsterToOwner[id] = msg.sender;
         ownerMonsterCount[msg.sender]++;
         
         // 用户最多生成5个monsters
@@ -51,16 +54,13 @@ contract SkillContract {
         
         // 检查用户有无重复生成(待更新)
         
-        newMonster.monsterID = _monsterID;
-        newMonster.monsterName = _monsterName;
-        
         emit NewMonster(_monsterID, _monsterName);
     }
 
     // 添加新Skill
-    function addSkill(uint _monsterID, uint _skillLevel, uint _skillID, string storage _skillDescription, uint _skillPoint) private {
+    function addSkill(uint _monsterID, uint32 _skillLevel, uint _skillID, uint32 _skillPoint, string storage _skillDescription) internal {
         Monster storage monster = monsters[_monsterID];
-        monster.skills.push(Skill(_skillID, _skillLevel, _skillDescription, _skillPoint, false));
+        monster.skills.push(Skill(_skillID, _skillLevel,  _skillPoint, _skillDescription, false));
     }
 
     // 学会skill
@@ -74,5 +74,18 @@ contract SkillContract {
         Skill storage skill = monster.skills[_skillID];
         skill.isLearned = true;
     }
+
+    // 查看用户全部monsters
+    function getMonstersByOwner(address _owner) external view returns (uint[] memory) {
+    uint[] memory result = new uint[](ownerMonsterCount[_owner]);
+    uint counter = 0;
+        for (uint i = 0; i < monsters.length; i++) {
+            if (monsterToOwner[i] == _owner) {
+                result[counter] = i;
+                counter++;
+            }
+        }
+    return result;
+}
 
 }
