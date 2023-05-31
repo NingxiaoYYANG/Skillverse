@@ -14,6 +14,7 @@ contract SkillContract is Ownable{
         uint skillID;
         uint32 skillPoint;
         uint32 skillLevel;
+        uint32 skillDependent;
         string skillDescription;
         bool isLearned;
     }
@@ -39,7 +40,7 @@ contract SkillContract is Ownable{
         return monsters[_monsterID].skills;
     }
 
-    // 添加新Monster,
+    // 添加新Monster
     function addMonster(uint _monsterID, string storage _monsterName) internal {
         Monster memory newMonster = Monster(_monsterID, _monsterName, new Skill[](0));
         uint id = monsters.length;
@@ -48,7 +49,6 @@ contract SkillContract is Ownable{
         // 把生成的monster加进用户地址
         monsterToOwner[id] = msg.sender;
         ownerMonsterCount[msg.sender]++;
-        
         // 用户最多生成5个monsters
         require(ownerMonsterCount[msg.sender] <= 5);
         
@@ -58,9 +58,9 @@ contract SkillContract is Ownable{
     }
 
     // 添加新Skill
-    function addSkill(uint _monsterID, uint32 _skillLevel, uint _skillID, uint32 _skillPoint, string storage _skillDescription) internal {
+    function addSkill(uint _monsterID, uint32 _skillLevel, uint _skillID, uint32 _skillPoint, uint32 _skillDependent, string storage _skillDescription) internal {
         Monster storage monster = monsters[_monsterID];
-        monster.skills.push(Skill(_skillID, _skillLevel,  _skillPoint, _skillDescription, false));
+        monster.skills.push(Skill(_skillID, _skillLevel,  _skillPoint,  _skillDependent, _skillDescription, false));
     }
 
     // 学会skill
