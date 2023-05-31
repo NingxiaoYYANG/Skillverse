@@ -5,7 +5,7 @@
   }
   
   body {
-    background-color: #182e48;
+    background-color: #0f1546;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +20,7 @@
   }
   
   .login-btn {
-    background: #21bf96;
+    background: #97e3fe;
     color: #fff;
     padding: 13px 35px;
     font-size: 24px;
@@ -80,13 +80,4 @@
     cursor: pointer;
     margin-top: 40px;
   }
-
-  /* REMOVE AFTER TESTING */
-/* .login-section {
-    display: none;
-  }
-  
-  .dashboard-section {
-    display: flex;
-  } */
   
