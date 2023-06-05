@@ -49,10 +49,17 @@ contract SkillContract is Ownable{
         // 把生成的monster加进用户地址
         monsterToOwner[id] = msg.sender;
         ownerMonsterCount[msg.sender]++;
+
+        // 检查用户有无重复生成相同的monster(待更新)
+        // 检查所有的此用户的monster，是否有重复名字
+        for (uint id = 0; monsterToOwner[id] == msg.sender; id++) {
+            require( keccak256(abi.encodePacked(_monsterName)) != keccak256(abi.encodePacked(monsters[id].monsterName)),
+                 "Monster with the same name already exists under the same owner.");
+        }
         // 用户最多生成5个monsters
         require(ownerMonsterCount[msg.sender] <= 5);
         
-        // 检查用户有无重复生成(待更新)
+
         
         emit NewMonster(_monsterID, _monsterName);
     }
