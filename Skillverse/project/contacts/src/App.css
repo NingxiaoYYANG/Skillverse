@@ -6,14 +6,10 @@
 
 body {
   background-color: #97e3fe;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
 }
 
 /* LOGIN SECTION */
-
 .login-section {
   display: flex;
   flex-direction: column;
@@ -79,4 +75,13 @@ body {
   font-weight: 600;
   cursor: pointer;
   margin-top: 40px;
+}
+
+/* MAIN SECTION */
+.navbar {
+  background: #cc0000;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: self-end;
 }

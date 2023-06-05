@@ -1,0 +1,15 @@
+.Title {
+    font-size: larger;
+    justify-content: center;
+}
+.Introduction {
+    align-items: center;
+    justify-content: center;
+}
+
+.Welcome_Section {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
