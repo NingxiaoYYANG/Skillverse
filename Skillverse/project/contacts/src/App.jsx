@@ -4,6 +4,7 @@ import "./App.css";
 import Welcome from "./components/Welcome";
 import { abi, address } from "./config.js";
 import Monster from './pages/Monster';
+import BigButton from "./components/BigButton";
 import {
   Routes,
   Route,
@@ -115,24 +116,27 @@ function App() {
         <nav className="navbar">
           {userWalletAddress ? (
             <>
-              <h1>Web3 Dashboard</h1>
-              <p>
+              <h1 className="admin_title">Web3 Dashboard</h1>
+              <p className="admin_info">
                 Current wallet address: <span>{userWalletAddress}</span>
               </p>
-              <p>
+              <p className="admin_info">
                 Wallet balance: <span>{balance ? `${balance} ETH` : "Loading..."}</span>
               </p>
-              <button className="logout-btn" onClick={logout}>
+              {/* <button className="logout-btn" onClick={logout}>
                 Logout
-              </button>
+              </button> */}
+              <BigButton onClick={logout}>Logout</BigButton>
             </>
           ) : (
             <>
-              <h1>Web3 Login</h1>
-              <p>Please install MetaMask or any Ethereum Extension Wallet</p>
-              <button className="login-btn" onClick={loginWithEth}>
+              <h1 className="admin_title">Web3 Login</h1>
+              <p className="admin_info">Please install MetaMask</p>
+              <p className="admin_info">or any Ethereum Extension Wallet</p>
+              {/* <button className="login-btn" onClick={loginWithEth}>
                 Login with Ethereum
-              </button>
+              </button> */}
+              <BigButton onClick={loginWithEth}>Login with Ethereum</BigButton>
             </>
           )}
         </nav>
