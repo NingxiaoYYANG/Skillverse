@@ -17,6 +17,7 @@ function App() {
   const [balance, setBalance] = React.useState(null);
   const [contract, setContract] = React.useState(null);
   const [monsters, setMonsters] = React.useState([]);
+  const [id, setIdFn] = React.useState(null);
   // const [id, setIdFn] = useState(null);
 
   React.useEffect(() => {
@@ -137,6 +138,7 @@ function App() {
         </nav>
       <Routes>
         <Route path='/' element={<Welcome monsterPageFn={monsterPageBtn}/>}></Route>
+        <Route path='/monster' element={<Monster setIdFn={id} setContractFn={contract}/>}></Route>
       </Routes>
       </div>
   </Router>
