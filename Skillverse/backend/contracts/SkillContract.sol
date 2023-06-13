@@ -14,6 +14,7 @@ contract SkillContract is Ownable{
         uint skillID;
         uint32 skillPoint;
         uint32 skillLevel;
+        uint32 skillDependent;
         string skillDescription;
         bool isLearned;
     }
@@ -64,9 +65,9 @@ contract SkillContract is Ownable{
     }
 
     // 添加新Skill
-    function addSkill(uint _monsterID, uint32 _skillLevel, uint _skillID, uint32 _skillPoint, string storage _skillDescription) internal {
+    function addSkill(uint _monsterID, uint32 _skillLevel, uint _skillID, uint32 _skillPoint, uint32 _skillDependent, string storage _skillDescription) internal {
         Monster storage monster = monsters[_monsterID];
-        monster.skills.push(Skill(_skillID, _skillLevel,  _skillPoint, _skillDescription, false));
+        monster.skills.push(Skill(_skillID, _skillLevel,  _skillPoint,  _skillDependent, _skillDescription, false));
     }
 
     // 学会skill
@@ -83,15 +84,15 @@ contract SkillContract is Ownable{
 
     // 查看用户全部monsters
     function getMonstersByOwner(address _owner) external view returns (uint[] memory) {
-    uint[] memory result = new uint[](ownerMonsterCount[_owner]);
-    uint counter = 0;
+        uint[] memory result = new uint[](ownerMonsterCount[_owner]);
+        uint counter = 0;
         for (uint i = 0; i < monsters.length; i++) {
             if (monsterToOwner[i] == _owner) {
                 result[counter] = i;
                 counter++;
             }
         }
-    return result;
-}
+        return result;
+    }
 
 }
