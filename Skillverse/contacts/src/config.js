@@ -1,4 +1,6 @@
-var monstersABI = [
+export const address = "0xd9145CCE52D386f254917e481eB44e9943F39138"; // 合约地址
+
+export const abi = [
     {
         "anonymous": false,
         "inputs": [
