@@ -4,8 +4,8 @@ import React from 'react';
 
 const Monster = (props) => {
   const [monster, setMonster] = useState(null);
-  const [contract, setContractFn] = useState(null);
-  const [id, setIdFn] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [id, setId] = useState(null);
 
   useEffect(() => {
     const fetchMonsterDetails = async () => {
@@ -43,6 +43,6 @@ const Monster = (props) => {
 export default Monster;
 
 Monster.propTypes = {
-  setIdFn: PropTypes.func,
-  setContractFn: PropTypes.func,
+  setId: PropTypes.func,
+  setContract: PropTypes.func,
 };

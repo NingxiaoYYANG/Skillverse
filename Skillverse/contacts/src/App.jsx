@@ -2,6 +2,7 @@ import React from "react";
 import Web3 from "web3";
 import "./App.css";
 import Welcome from "./components/Welcome";
+import Output from "./pages/Output";
 import { abi, address } from "./config.js";
 import Monster from './pages/Monster';
 import BigButton from "./components/BigButton";
@@ -18,8 +19,7 @@ function App() {
   const [balance, setBalance] = React.useState(null);
   const [contract, setContract] = React.useState(null);
   const [monsters, setMonsters] = React.useState([]);
-  const [id, setIdFn] = React.useState(null);
-  // const [id, setIdFn] = useState(null);
+  const [id, setId] = React.useState(null);
 
   React.useEffect(() => {
     async function load() {
@@ -106,8 +106,12 @@ function App() {
 
 
   const monsterPageBtn = () => {
-    Navigate('/monster');
+    return <Navigate to="/monster" />;
   }
+
+  const monsterOutputBtn = () => {
+    return <Navigate to="/monster-output" />;
+  };
   
 
   return (
@@ -123,9 +127,6 @@ function App() {
               <p className="admin_info">
                 Wallet balance: <span>{balance ? `${balance} ETH` : "Loading..."}</span>
               </p>
-              {/* <button className="logout-btn" onClick={logout}>
-                Logout
-              </button> */}
               <BigButton onClick={logout}>Logout</BigButton>
             </>
           ) : (
@@ -133,16 +134,14 @@ function App() {
               <h1 className="admin_title">Web3 Login</h1>
               <p className="admin_info">Please install MetaMask</p>
               <p className="admin_info">or any Ethereum Extension Wallet</p>
-              {/* <button className="login-btn" onClick={loginWithEth}>
-                Login with Ethereum
-              </button> */}
               <BigButton onClick={loginWithEth}>Login with Ethereum</BigButton>
             </>
           )}
         </nav>
       <Routes>
-        <Route path='/' element={<Welcome monsterPageFn={monsterPageBtn}/>}></Route>
-        <Route path='/monster' element={<Monster setIdFn={id} setContractFn={contract}/>}></Route>
+        <Route path="/" element={<Welcome monsterPageFn={monsterPageBtn} monsterOutputBtn={monsterOutputBtn} />} />
+        <Route path='/monster' element={<Monster setId={setId} setContract={setContract} />} />
+        <Route path='/monster-output' element={<Output />} />
       </Routes>
       </div>
   </Router>
