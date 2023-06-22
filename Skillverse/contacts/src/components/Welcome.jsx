@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import './Welcome.css';
 import BigButton from './BigButton';
@@ -12,19 +11,15 @@ const Welcome = (props) => {
       <br />
       <b className='Introduction'>We are here to help you!</b>
       <br />
-      <Link to="/monster">
-        <BigButton>READY!</BigButton>
-      </Link>
-      <Link to="/monster-output">
-        <BigButton>Output</BigButton>
-      </Link>
+      <BigButton onClick={props.monsterInputBtnFn}>READY!</BigButton>
+      <BigButton onClick={props.monsterOutputBtnFn}>Test Output</BigButton>
     </div>
   );
 };
 
 Welcome.propTypes = {
-  monsterPageFn: PropTypes.func,
-  monsterOutputBtn: PropTypes.func
+  monsterInputBtnFn: PropTypes.func,
+  monsterOutputBtnFn: PropTypes.func
 };
 
 export default Welcome;
