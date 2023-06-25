@@ -16,8 +16,8 @@ import Welcome from "./components/Welcome";
 import BigButton from "./components/BigButton";
 
 // Pages
-import Monster from './pages/Monster';
-import Output from './pages/Output';
+import Monster from './pages/Monster.jsx';
+import Output from './pages/Output.jsx';
 import Input from './pages/Input.jsx';
 
 
