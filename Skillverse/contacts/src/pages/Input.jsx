@@ -29,9 +29,23 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
         }
     }, [message, skillArrays])  
 
-    const getPositions = () => {
+    const [positions, setPositions] = useState([])
+
+    const getPositions = async () => {
         // TO-DO
+        const response = await fetch(`http://localhost:8000/positions?area=${encodeURIComponent(areaOfInterest)}`);
+
+        if (!response.ok) {
+            console.error(`HTTP error! status: ${response.status}`);
+            return;
+        }
+
+        const data = await response.json();
+
+        // Assuming data is an array of positions, e.g., ['Frontend developer', 'Backend developer', 'Game developer']
+        setPositions(data);
     }
+
 
     const getSkillInfos = async () => {
         const options = {
@@ -88,7 +102,10 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
                 <div className='position-input'>
                     <h1>What is your career goal?</h1>
                     {/* Just to show */}
-                    <input value={position} onChange={(e) => setPosition(e.target.value)}/>
+                    <select value={position} onChange={handlePositionChange}>
+                        <option value="">Select an option</option>
+                        {positions.map((pos, index) => <option key={index} value={pos}>{pos}</option>)}
+                    </select>
                     <BigButton id='confirm' onClick={getSkillInfos}> Confirm </BigButton>
                     
                     <select value={position} onChange={handlePositionChange}>
