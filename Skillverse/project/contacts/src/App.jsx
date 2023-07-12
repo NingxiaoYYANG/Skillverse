@@ -1,7 +1,7 @@
 import React from "react";
 import Web3 from "web3";
 import "./App.css";
-import Welcome from "./components/Welcome";
+import Welcome from "./Welcome";
 import { abi, address } from "./config.js";
 import Monster from './pages/Monster';
 import BigButton from "./components/BigButton";
@@ -103,7 +103,6 @@ function App() {
     const balance = await web3.eth.getBalance(userWalletAddress);
     setBalance(web3.utils.fromWei(balance, "ether"));
   };
-
 
   const monsterPageBtn = () => {
     Navigate('/monster');

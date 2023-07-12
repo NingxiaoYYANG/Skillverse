@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import BigButton from './BigButton';
-import {loginWithEth, userWalletAddress} from '../App';
+import BigButton from './components/BigButton';
+import App from './App';
 
 import './Welcome.css';
 
@@ -9,7 +9,7 @@ const Welcome = (props) => {
 
   return (
     <div className='Welcome_Section'>
-          {userWalletAddress ? (
+          {App.userWalletAddress ? (
             <>
               <b className='Title'>Welcome To Skillverse</b>
               <br />
@@ -19,13 +19,13 @@ const Welcome = (props) => {
             </>
           ): (
             <>
-              <BigButton onClick={loginWithEth}>Login with Ethereum</BigButton>
-              <BigButton onClick={props.monsterPageFn}>READY!</BigButton>
+              <BigButton onClick={App.loginWithEth}>Login with Ethereum</BigButton>
             </>
           )}
     </div>
   )
 };
+
 
 export default Welcome;
 
