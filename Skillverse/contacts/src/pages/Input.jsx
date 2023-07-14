@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 import BigButton from '../components/BigButton';
+import './Input.css'
 
 const Output = (props) => {
     const [position, setPosition] = useState("")
@@ -84,7 +85,7 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
             console.log(error)
         }
     }
-
+    const [open, setOpen]=useState(false)
     return (
         <div className="app">
             <section className='input-container'>
@@ -115,6 +116,32 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
                         <option value="Game developer">Game developer</option>
                     </select>
                 </div>
+            </section>
+            <section className={open?"main-structure active":"main-structure"}>
+                <header>
+                    <a href="#">
+                        <div className="logo">Knowledge</div>
+                    </a>
+                    <div className="menu-logo" onClick={()=>{
+                        setOpen(!open)
+                    }}></div>
+                </header>
+                <div className="content">
+                <video className="active" src="/assets/videos/island.mp4" autoPlay muted loop></video>
+                <div className="video-overlay"></div>
+                <section className="text-description">
+                    <h1></h1>
+                    <h2></h2>
+                    <p>Hypothesis is always ahead of knowledge!!</p>
+                    <a href="#"></a>
+                </section>
+                </div>
+                <footer>
+                    <a href="#"><img src="/assets/icons/facebook.svg" alt="facebook"/></a>
+                    <a href="#"><img src="/assets/icons/instagram.svg" alt="instagram"/></a>
+                    <a href="#"><img src="/assets/icons/twitter.svg" alt="twitter"/></a>
+                </footer>
+
             </section>
 
             <section className='output-container'>
