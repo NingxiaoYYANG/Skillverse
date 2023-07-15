@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import BigButton from '../components/BigButton';
 
-const Output = (props) => {
+const Input = (props) => {
     const [position, setPosition] = useState("")
     const [areaOfInterest, setAreaOfInterest] = useState('');
     const filtered_Input = `what skills do I need to learn if I want to become a ${position}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n\
@@ -12,6 +13,8 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     const [message, setMessage] = useState(null)
     const [content, setContent] = useState([])
     const [skillArrays, setSkillArrays] = useState([])
+
+    const navigate = useNavigate();
 
     // handle change when user selects an option for area of interest
     const handleInterestChange = (event) => {
@@ -69,6 +72,7 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
         } catch (error) {
             console.log(error)
         }
+        navigate(`/monster-output?position=${position}&message=${encodeURIComponent(message)}&skillArrays=${encodeURIComponent(JSON.stringify(skillArrays))}`);
     }
 
     return (
@@ -99,19 +103,8 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
                     </select>
                 </div>
             </section>
-
-            <section className='output-container'>
-                <ul className='feed'>
-                    {content?.map((skillInfo, idx) => <li key={idx}>
-                        <p>{`Skill: ${skillInfo.Skill}`}</p>
-                        <p>{`SkillID: ${skillInfo.SkillID}`}</p>
-                        <p>{`Parent: ${skillInfo.Parent}`}</p>
-                        <p>{`ParentID: ${skillInfo.ParentID}`}</p>
-                    </li>)}
-                </ul>
-            </section>
         </div>
     );
 };
 
-export default Output;
+export default Input;
