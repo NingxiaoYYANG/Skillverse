@@ -1,30 +1,22 @@
 # Hackthon2023
 Web3 Application repo
 
-# 准备项目的可行性流程和步骤：
 
-## 1.确定项目目标和主题
-包括技术和编程语言的选择，确保代码能够满足项目需求。
+# Skillverse
+The mission of Skillverse is to break down the barriers of centralized educational institutions and eliminate the monopoly of education certification by such institutions. It aims to provide equal access to high-quality educational resources and more scientifically recognized professional certifications for everyone.
 
-## 2.进行研究和调研
-考虑和研究可用的工具和框架，提高效率和减少开发时间。
+# Background
+The graduation certificates issued by centralized educational institutions today may not always fully reflect an individual's professional and vocational capabilities in the industry. Possessing a certificate issued by a certain educational institution does not necessarily represent a true mastery of a particular field's professional skills. Moreover, many prestigious educational institutions are only open to a small portion of the world's population. The vast majority of people, especially those living in underprivileged areas, can never access the learning resources of these authoritative educational institutions, let alone obtain their certificates. Skillverse is committed to addressing this series of problems, breaking down the barriers of centralized educational institutions, and enabling people from around the world to enjoy educational resources and receive genuine professional competency certification that aligns with their respective fields.
 
-## 3.确定项目功能和需求
-考虑到系统架构和基础设施设计，确保代码能够集成到整个系统中。
+# Government
+In addition to the participation of team members in the development of the project, Skillverse will also adopt a DAO (Decentralized Autonomous Organization) governance model. We welcome everyone in the Web3 world to have the opportunity to participate in the project's development. By leveraging the industry advantages of Web3, we aim to achieve true fairness and genuine decentralization.
 
-## 4.组建团队和分配任务
-合理使用团队成员的技能和经验，确保代码能够高效协作。
+# Tokenomics
+The total token supply is 100 million tokens. 65% of the tokens will be distributed in batches to different categories of participants to support ecosystem development. 20% of the tokens will be allocated for financing and given to investors. 15% of the tokens will be reserved for team incentives.
 
-## 5.项目设计和目标实现
-按照系统架构和需求实现相应的代码功能，
-并遵循相关的编码规范和标准。
+# How do I participate in Skillverse?
+Learners will have the opportunity to continuously earn airdropped tokens as rewards during their learning journey. Additionally, when reaching certain levels of proficiency, they will be eligible to receive corresponding NFT rewards, which will serve as certifications in their respective fields. We also welcome experts in various fields to share their knowledge on the platform. In addition to receiving airdropped token rewards, they can earn additional incentives by offering paid content, which learners can access by using project tokens for payment.
 
-## 6.测试和优化
-使用测试框架和工具测试代码，
-并解决出现的问题和错误，确保代码的正确性和可靠性。
-
-## 7.展示和演示
-向评审团展示代码实现和功能，分享团队的进展并获得反馈。
-
-Test
+# How can I benefit from Skillverse?
+The platform will charge a certain percentage of service fees with each successful payment. These service fees will be regularly burned, creating dividends for users holding the project tokens.
 
