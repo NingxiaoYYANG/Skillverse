@@ -3,8 +3,10 @@ import { useState, useEffect } from 'react'
 import BigButton from '../components/BigButton';
 import './Input.css'
 
-const Output = (props) => {
-    const [position, setPosition] = useState("")
+/*const Output = (props) => {
+    */
+function Career() {
+    const [position, setPosition] = useState('')
     const [areaOfInterest, setAreaOfInterest] = useState('');
     /*const filtered_Input = `what skills do I need to learn if I want to become a ${position}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n\
   Answer in the following format:\n\
@@ -27,59 +29,135 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
         setPosition(event.target.value);
     };
     
-    const PositionOptions = [
-        {value: 'Frontend developer', label: 'Frontend'},
-        {value: 'Backend developer', label: 'Backend'},
-        {value: 'Web developer', label: 'Web'},
-        {value: 'Game developer', label: 'Game'},
+    const InterestOptions = [
+        {value: 'art', label: 'Art'},
+        {value: 'iT', label: 'IT'},
+        {value: 'engineering', label: 'Engineering'},
+        {value: 'science', label: 'Science '},
+        {value: 'design', label: 'Design '},
+    ];
+    
 
+    const ArtOptions = [
+        {value: 'Fine Artist', label: 'Fine Artist'},
+        {value: 'Illustrator', label: 'Illustrator'},
+        {value: 'Graphic Designer', label: 'Graphic Designer'},
     ];
 
-    const FrontendOptions = [
-        {value: 'HTML', label: 'html'},
-        {value: 'CSS', label: 'css'},
-        {value: 'JavaScript', label: 'js'},
-        {value: 'CSS Preprocessors', label: 'css Preprocessors'},
-        {value: 'Frontend Frameworks and Libraries', label: 'Frameworks and Libraries'},
-
+    const ITOptions = [
+        {value: 'Software Development', label: 'Software Development'},
+        {value: 'Web Development', label: 'Web Development'},
+        {value: 'Systems Administration', label: 'Systems Administration'},
+        {value: 'Network Engineering', label: 'Network Engineering'},
+        {value: 'Cybersecurity', label: 'Cybersecurity'},
+        {value: 'Data Science and Analytics', label: 'Data Science and Analytics'},
+        {value: 'Cloud Computing', label: 'Cloud Computing'},
+        {value: 'IT Consulting', label: 'IT Consulting'},
     ];
 
-    const BackendOptions = [
-        {value: 'Python', label: 'python'},
-        {value: 'JavaScript', label: 'js'},
-        {value: 'Java', label: 'jv'},
-        {value: 'Ruby', label: 'ruby'},       
+    const EngineeringOptions = [
+        {value: 'Civil Engineering', label: 'Civil'},
+        {value: 'Mechanical Engineering', label: 'Mechanical'},
+        {value: 'Electrical Engineering', label: 'Electrical'},
+        {value: 'Aerospace Engineering', label: 'Aerospace'},
+        {value: 'Computer Engineering', label: 'Computer'},    
+        {value: 'Chemical Engineering', label: 'Chemical'},    
+        {value: 'Environmental Engineering', label: 'Environmental'},    
+        {value: 'Biomedical Engineering', label: 'Biomedical'},    
+        {value: 'Industrial Engineering', label: 'Industrial'},    
+        {value: 'Software Engineering', label: 'Software'},    
+        {value: 'Materials Engineering', label: 'Materials'}, 
+        {value: 'Petroleum Engineering', label: 'Petroleum'},
+        {value: 'Nuclear Engineering', label: 'Nuclear'},
+        {value: 'Renewable Energy Engineering', label: 'Renewable Energy'},
     ];
 
-    const WebOptions = [
-        {value: 'HTML', label: 'html'},
-        {value: 'CSS', label: 'css'},
-        {value: 'JavaScript', label: 'js'},
-        {value: 'Python', label: 'python'},
-        {value: 'Ruby', label: 'ruby'},
-        {value: 'Database Management', label: 'databass'},
+    const ScienceOptions = [
+        {value: 'Research Scientist', label: 'Research'},
+        {value: 'Medical Scientist', label: 'Medical'},
+        {value: 'Biotechnologist', label: 'Biotechnologist'},
+        {value: 'Pharmacist', label: 'Pharmacist'},
+        {value: 'Environmental Scientist', label: 'Environmental'},
+        {value: 'Geoscientist', label: 'Geoscientist'},
+        {value: 'Astrophysicist/Astronomer', label: 'Astrophysicist'},
+        {value: 'Neuroscientist', label: 'Neuroscientist'},
+        {value: 'Forensic Scientist', label: 'Forensic'},
+        {value: 'Science Educator', label: 'Educator'},
+        {value: 'Science Communicator', label: 'Communicator'},
+        {value: 'Science Policy Analyst', label: 'Analyst'},
+        {value: 'Food Scientist', label: 'Food'},
+        {value: 'Zoologist/Botanist', label: 'Zoologist'},
+        {value: 'Biomedical Researcher', label: 'Biomedical'},
+        {value: 'Materials Scientist', label: 'Materials'},
+        {value: 'Science Illustrator', label: 'Illustrator'},
     ];
 
-    const GameOptions = [
-        {value: 'C++', label: 'c++'},
-        {value: 'C#', label: 'c#'},
-        {value: 'Java', label: 'jv'},
-        {value: 'Python', label: 'python'},
-        {value: 'Swift/Objective-C', label: 'ios'},
-        {value: 'Lua', label: 'lua'},
-
+    const DesignOptions = [
+        {value: 'Graphic Design', label: 'Graphic'},
+        {value: 'Web Design and Development', label: 'WebDesign'},
+        {value: 'UX/UI Design', label: 'UX/UI'},
+        {value: 'Industrial Design', label: 'Industrial'},
+        {value: 'Interior Design', label: 'Interior'},
+        {value: 'Fashion Design', label: 'Fashion'},
+        {value: 'Animation and Motion Graphics', label: 'Animation'},
+        {value: 'Architectural Design', label: 'Architectural'},
+        {value: 'Game Design', label: 'GameDesign'},
+        {value: 'Multimedia Design', label: 'Multimedia'},
+        {value: 'User Experience Research', label: 'User Experience'},
+        {value: 'Advertising and Branding Design', label: 'Advertising'},
     ];
-
-
-    /*const InterestOptions = [
-        {value: 'HTML', label: 'html'},
-        {value: 'CSS', label: 'css'},
-        {value: 'JavaScript', label: 'js'},
-        {value: 'DOM Manipulation', label: 'DOM '},
-
-    ];
-    */
    
+    let options = [];
+    if (areaOfInterest === 'art') {
+        options = ArtOptions;
+    } else if (areaOfInterest === 'iT') {
+        options = ITOptions;
+    } else if (areaOfInterest === 'engineering') {
+        options = EngineeringOptions;
+    } else if (areaOfInterest === 'science') {
+        options = ScienceOptions;
+    } else if (areaOfInterest === 'design') {
+        options = DesignOptions;
+    }
+
+    return (
+        <div>
+          <h1>Dropdown Menu</h1>
+    
+          <div>
+            <label>Select an interest:</label>
+            <select value={areaOfInterest} onChange={handleInterestChange}>
+              <option value="">Select an interest</option>
+              {InterestOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+    
+          {areaOfInterest && (
+            <div>
+              <label>Select a position:</label>
+              <select value={position} onChange={handlePositionChange}>
+                <option value="">Select a position</option>
+                {options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+    
+          {position && (
+            <p>Selected item: {position}</p>
+          )}
+        </div>
+    );
+};
+export default Career;
+/*
     useEffect(() => {
         if (position && message && skillArrays) {
             setContent(skillArrays)
@@ -158,7 +236,7 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
                 <br/>
                 <div className='position-input'>
                     <h1>What is your career goal?</h1>
-                    {/* Just to show */}
+                    
                     <select value={position} onChange={handlePositionChange}>
                         <option value="">Select an option</option>
                         {positions.map((pos, index) => <option key={index} value={pos}>{pos}</option>)}
@@ -181,7 +259,7 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
                     <div className="menu-logo" onClick={()=>{
                         setOpen(!open)
                     }}></div>
-                </header>
+                </header> 
                 <div className="content">
                 <video className="active" src="/assets/videos/island.mp4" autoPlay muted loop></video>
                 <div className="video-overlay"></div>
@@ -211,7 +289,6 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
                 </ul>
             </section>
         </div>
-    );
-};
+    );*/
 
-export default Output;
+
