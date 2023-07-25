@@ -6,24 +6,80 @@ import './Input.css'
 const Output = (props) => {
     const [position, setPosition] = useState("")
     const [areaOfInterest, setAreaOfInterest] = useState('');
-    const filtered_Input = `what skills do I need to learn if I want to become a ${position}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n\
+    /*const filtered_Input = `what skills do I need to learn if I want to become a ${position}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n\
   Answer in the following format:\n\
 Skill, SkillID, Parent, ParentID| Here is an example to follow:\n\
-HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, JavaScript, 3|CSS Frameworks, 5, CSS, 2|Bootstrap, 6, CSS Frameworks, 5|JavaScript Libraries, 7, JavaScript, 3|jQuery, 8, JavaScript Libraries, 7|React, 9, JavaScript Libraries, 7|Redux, 10, React, 9|Angular, 11, JavaScript Libraries, 7`
+HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, JavaScript, 3|CSS Frameworks, 5, CSS, 2
+|Bootstrap, 6, CSS Frameworks, 5|JavaScript Libraries, 7, JavaScript, 3|jQuery, 8, JavaScript Libraries, 7|React, 9, JavaScript Libraries, 7
+|Redux, 10, React, 9|Angular, 11, JavaScript Libraries, 7`
     const [message, setMessage] = useState(null)
     const [content, setContent] = useState([])
-    const [skillArrays, setSkillArrays] = useState([])
+    const [skillArrays, setSkillArrays] = useState([])*/
 
     // handle change when user selects an option for area of interest
     const handleInterestChange = (event) => {
         setAreaOfInterest(event.target.value);
+        setAreaOfInterest('');
     };
 
-    // handle change when user selects an option for area of interest
+    // handle change when user selects an option for area of Position
     const handlePositionChange = (event) => {
         setPosition(event.target.value);
     };
     
+    const PositionOptions = [
+        {value: 'Frontend developer', label: 'Frontend'},
+        {value: 'Backend developer', label: 'Backend'},
+        {value: 'Web developer', label: 'Web'},
+        {value: 'Game developer', label: 'Game'},
+
+    ];
+
+    const FrontendOptions = [
+        {value: 'HTML', label: 'html'},
+        {value: 'CSS', label: 'css'},
+        {value: 'JavaScript', label: 'js'},
+        {value: 'CSS Preprocessors', label: 'css Preprocessors'},
+        {value: 'Frontend Frameworks and Libraries', label: 'Frameworks and Libraries'},
+
+    ];
+
+    const BackendOptions = [
+        {value: 'Python', label: 'python'},
+        {value: 'JavaScript', label: 'js'},
+        {value: 'Java', label: 'jv'},
+        {value: 'Ruby', label: 'ruby'},       
+    ];
+
+    const WebOptions = [
+        {value: 'HTML', label: 'html'},
+        {value: 'CSS', label: 'css'},
+        {value: 'JavaScript', label: 'js'},
+        {value: 'Python', label: 'python'},
+        {value: 'Ruby', label: 'ruby'},
+        {value: 'Database Management', label: 'databass'},
+    ];
+
+    const GameOptions = [
+        {value: 'C++', label: 'c++'},
+        {value: 'C#', label: 'c#'},
+        {value: 'Java', label: 'jv'},
+        {value: 'Python', label: 'python'},
+        {value: 'Swift/Objective-C', label: 'ios'},
+        {value: 'Lua', label: 'lua'},
+
+    ];
+
+
+    /*const InterestOptions = [
+        {value: 'HTML', label: 'html'},
+        {value: 'CSS', label: 'css'},
+        {value: 'JavaScript', label: 'js'},
+        {value: 'DOM Manipulation', label: 'DOM '},
+
+    ];
+    */
+   
     useEffect(() => {
         if (position && message && skillArrays) {
             setContent(skillArrays)
