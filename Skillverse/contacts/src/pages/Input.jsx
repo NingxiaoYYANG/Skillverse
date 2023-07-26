@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BigButton from '../components/BigButton';
 import PropTypes from 'prop-types';
 
@@ -7,10 +7,11 @@ import PropTypes from 'prop-types';
 const Input = (props) => {
     const [position, setPosition] = useState('')
     const [areaOfInterest, setAreaOfInterest] = useState('');
+    const navigate = useNavigate();
 
-    const getSkillInfos = async () => {
-        // Conlict solving
-    }   
+    const getSkillInfos = () => {
+        navigate(`/monster-output`);
+    };
 
     // handle change when user selects an option for area of interest
     const handleInterestChange = (event) => {
@@ -21,6 +22,8 @@ const Input = (props) => {
     // handle change when user selects an option for area of Position
     const handlePositionChange = (event) => {
         setPosition(event.target.value);
+        props.setUserInputFn(event.target.value);
+        localStorage.setItem('userInput', event.target.value);
     };
     
     const InterestOptions = [
@@ -144,7 +147,7 @@ const Input = (props) => {
             </div>
           )}
         </div>
-    );
+    )
 };
 
 Input.protoTypes = {
