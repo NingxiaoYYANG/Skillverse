@@ -1,29 +1,15 @@
-.tree {
-    display: flex;
-    flex-direction: column;
-  }
-  
-.node {
-  margin-left: 20px;
+/* Add CSS styles for the icon and line */
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
-.node p {
-  margin: 5px 0;
-}
-
-.node ul {
-  padding-left: 20px;
-  margin: 10px 0;
-}
-
-.node li {
-  list-style-type: none;
-}
-
-.parent {
-  font-weight: bold;
-}
-
-#loading {
-  
+.line {
+  position: absolute;
+  border-left: 1px solid #000;
+  height: 20px;
+  top: 15px;
+  left: 15px;
 }

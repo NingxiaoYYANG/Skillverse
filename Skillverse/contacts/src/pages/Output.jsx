@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../pages/Output.css';
+import skillIcon from '../Monster/purple_icon.png';
 
 const Output = (props) => {
   const [prevSkill, setprevSkill] = useState([]);
@@ -74,16 +75,22 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
           </div>
         ) : (
           <ul className="tree">
-            {prevSkill?.map((skillInfo, idx) => 
+            {prevSkill?.map((skillInfo, idx) => (
               <li key={idx} className={skillInfo.ParentID === '0' ? 'parent' : ''}>
                 <div className="node">
+                  {/* 使用图片图标 */}
+                  <img src={skillIcon} alt="Skill Icon" className="icon" />
                   <p>{`Skill: ${skillInfo.Skill}`}</p>
                   <p>{`SkillID: ${skillInfo.SkillID}`}</p>
                   <p>{`Parent: ${skillInfo.Parent}`}</p>
                   <p>{`ParentID: ${skillInfo.ParentID}`}</p>
                 </div>
+                {/* 绘制连线 */}
+                {skillInfo.ParentID !== '0' && (
+                  <div className="line" />
+                )}
               </li>
-            )}
+            ))}
           </ul>
         )}
       </section>
