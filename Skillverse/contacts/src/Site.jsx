@@ -29,9 +29,18 @@ function Site() {
   const [contract, setContract] = React.useState(null);
   const [monsters, setMonsters] = React.useState([]);
   const [id, setId] = React.useState(null);
+  const [userInput, setUserInput] = React.useState(null);
   const navigate = useNavigate();
 
   React.useEffect(() => {
+    // 初始化UserInput
+    const hasInput = localStorage.getItem('userInput');
+
+    if (hasInput) {
+      setUserInput(hasInput);
+    }
+
+
     async function load() {
       if (window.ethereum) {
         setWeb3(new Web3(window.ethereum));
@@ -154,8 +163,8 @@ function Site() {
         <Routes>
             <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} monsterOutputBtnFn={monsterOutputBtn} />} />
             <Route path='/monster' element={<Monster setId={setId} setContract={setContract} />} />
-            <Route path='/monster-output' element={<Output />} />
-            <Route path='/monster-input' element={<Input />} />
+            <Route path='/monster-output' element={<Output userInput={userInput}/>} />
+            <Route path='/monster-input' element={<Input setUserInputFn={setUserInput}/>} />
         </Routes>
     </div>
   );

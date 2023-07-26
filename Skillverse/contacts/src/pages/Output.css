@@ -3,24 +3,27 @@
     flex-direction: column;
   }
   
-  .node {
-    margin-left: 20px;
-  }
+.node {
+  margin-left: 20px;
+}
+
+.node p {
+  margin: 5px 0;
+}
+
+.node ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.node li {
+  list-style-type: none;
+}
+
+.parent {
+  font-weight: bold;
+}
+
+#loading {
   
-  .node p {
-    margin: 5px 0;
-  }
-  
-  .node ul {
-    padding-left: 20px;
-    margin: 10px 0;
-  }
-  
-  .node li {
-    list-style-type: none;
-  }
-  
-  .parent {
-    font-weight: bold;
-  }
-  
+}
