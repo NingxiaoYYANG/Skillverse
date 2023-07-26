@@ -19,7 +19,6 @@ const Welcome = (props) => {
 
 Welcome.propTypes = {
   monsterInputBtnFn: PropTypes.func,
-  // monsterOutputBtnFn: PropTypes.func
 };
 
 export default Welcome;

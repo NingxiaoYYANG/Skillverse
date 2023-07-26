@@ -57,10 +57,15 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
 
   useEffect(() => {
     if (props.userInput && skillArrays){  
-      getSkillInfos();
       setprevSkill(skillArrays); 
     }
   }, [skillArrays]); 
+
+  useEffect(() => {
+    if (skillArrays.length == 0) {
+      getSkillInfos();
+    }
+  }, [])
 
   console.log(debug)
   console.log(skillArrays.length)
@@ -68,7 +73,7 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
   return (
     <div className="app">
       <section className="output-container">
-        {loading ? (
+        {loading && !skillArrays ? (
           <div id='loading'>
             <p>Loading...</p>
           </div>
