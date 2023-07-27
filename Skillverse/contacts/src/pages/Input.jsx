@@ -9,7 +9,7 @@ const Input = (props) => {
     const [areaOfInterest, setAreaOfInterest] = useState('');
     const navigate = useNavigate();
 
-    const getSkillInfos = () => {
+    const navigateToOutput = () => {
         navigate(`/monster-output`);
     };
 
@@ -143,7 +143,7 @@ const Input = (props) => {
                     </option>
                     ))}
                 </select>
-                <BigButton id='confirm' onClick={getSkillInfos}> Confirm </BigButton>
+                <BigButton id='confirm' onClick={navigateToOutput}> Confirm </BigButton>
             </div>
           )}
         </div>

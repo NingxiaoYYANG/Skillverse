@@ -7,8 +7,16 @@ const Output = (props) => {
   const [loading, setLoading] = useState(true);
   const [skillArrays, setSkillArrays] = useState([]);
 
-  // debug
-  const [debug, setDebug] = useState("")
+  useEffect(() => {
+    if (props.userInput && skillArrays){  
+      setprevSkill(skillArrays); 
+    }
+  }, [skillArrays]); 
+
+  useEffect(() => {
+    getSkillInfos();
+  }, [])
+
 
   const getSkillInfos = async () => {
     const filtered_Input = `what skills do I need to learn if I want to become a ${props.userInput}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n
@@ -30,11 +38,9 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     try {
       const response = await fetch('http://localhost:8000/completions', options);
       const data = await response.json();
-      setDebug(data.choices[0].message.content)
       const MsgContent = data.choices[0].message.content;
       // Split message into skillInfos
       const skillInfos = MsgContent.split("|");
-      console.log(skillInfos.length)
       for (const InfoString of skillInfos) {
         const InfoArray = InfoString.split(", ");
         setSkillArrays( prevs => (
@@ -54,21 +60,6 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (props.userInput && skillArrays){  
-      setprevSkill(skillArrays); 
-    }
-  }, [skillArrays]); 
-
-  useEffect(() => {
-    if (skillArrays.length == 0) {
-      getSkillInfos();
-    }
-  }, [])
-
-  console.log(debug)
-  console.log(skillArrays.length)
 
   return (
     <div className="app">
