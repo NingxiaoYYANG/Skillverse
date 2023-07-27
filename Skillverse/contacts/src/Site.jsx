@@ -16,8 +16,7 @@ import Welcome from "./components/Welcome";
 import BigButton from "./components/BigButton";
 
 // Pages
-import Monster from './pages/Monster';
-import Output from './pages/Output';
+import Output from './pages/Output.jsx';
 import Input from './pages/Input.jsx';
 
 
@@ -27,8 +26,6 @@ function Site() {
   const [web3, setWeb3] = React.useState(null);
   const [balance, setBalance] = React.useState(null);
   const [contract, setContract] = React.useState(null);
-  const [monsters, setMonsters] = React.useState([]);
-  const [id, setId] = React.useState(null);
   const [userInput, setUserInput] = React.useState(null);
   const navigate = useNavigate();
 
@@ -96,7 +93,7 @@ function Site() {
 
     try {
       const ids = await contract.methods.getMonstersByOwner(owner).call();
-      setMonsters(ids);
+      // setMonsters(ids);
     } catch (error) {
       console.error(error);
     }
@@ -123,18 +120,9 @@ function Site() {
     setBalance(web3.utils.fromWei(balance, "ether"));
   };
 
-
-//   const monsterPageBtn = () => {
-//     navigate('/monster')
-//   }
-
   const monsterInputBtn = () => {
     navigate('/monster-input');
   }
-
-  const monsterOutputBtn = () => {
-    navigate('/monster-output');
-  };
   
 
   return (
@@ -161,8 +149,7 @@ function Site() {
             )}
         </nav>
         <Routes>
-            <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} monsterOutputBtnFn={monsterOutputBtn} />} />
-            <Route path='/monster' element={<Monster setId={setId} setContract={setContract} />} />
+            <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn}/>} />
             <Route path='/monster-output' element={<Output userInput={userInput}/>} />
             <Route path='/monster-input' element={<Input setUserInputFn={setUserInput}/>} />
         </Routes>
