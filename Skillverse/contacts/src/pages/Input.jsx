@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BigButton from '../components/BigButton';
 import PropTypes from 'prop-types';
-
+import './Input.css';
 
 const Input = (props) => {
     const [position, setPosition] = useState('')
@@ -120,7 +120,7 @@ const Input = (props) => {
     return (
         <div>
     
-          <div>
+          <div className="Interest_question">
             <h1>What is your area of interest?</h1>
             <select value={areaOfInterest} onChange={handleInterestChange}>
               <option value="">Select an interest</option>
@@ -133,7 +133,7 @@ const Input = (props) => {
           </div>
     
           {areaOfInterest && positions && (
-            <div>
+            <div className="career_question">
                 <h1>What is your career goal?</h1>
                 <select value={position} onChange={handlePositionChange}>
                     <option value="">Select a position</option>
