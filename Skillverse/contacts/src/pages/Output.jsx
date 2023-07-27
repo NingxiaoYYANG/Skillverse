@@ -82,14 +82,30 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
   const createReactD3TreeData = (node) => {
     return {
       name: node.Skill,
-      attributes: {
-        SkillID: node.SkillID,
-        Parent: node.Parent,
-        ParentID: node.ParentID,
-      },
       children: node.children.map(createReactD3TreeData),
     };
   };
+
+  const clickSkillNode = () => {
+    alert("1+1 = 2");
+  };
+
+  const SkillNode = () => {
+    return (
+      <g transform={`translate(-15,-25)`}>
+        <image xlinkHref={skillIcon} alt="Skill Icon" className="icon" width="30" height="30" onClick={clickSkillNode}/>
+      </g>
+    );
+  };
+
+  const renderRectSvgNode = ({ nodeDatum }) => (
+    <g>
+      <SkillNode/>
+      <text fill="black" strokeWidth="1" x="20">
+        {nodeDatum.name}
+      </text>
+    </g>
+  );
 
   return (
     <div className="app">
@@ -104,15 +120,7 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
               data={createReactD3TreeData({ Skill: props.userInput, children: prevSkill })}
               orientation="vertical"
               translate={{ x: 400, y: 200 }}
-              nodeSvgShape={{ shape: 'none' }}
-              nodeLabelComponent={{
-                render: (rd3tNode) => (
-                  <div className="nodeLabel">
-                    <img src={skillIcon} alt="Skill Icon" className="icon" />
-                    <p>{rd3tNode.name}</p>
-                  </div>
-                ),
-              }}
+              renderCustomNodeElement={renderRectSvgNode}
             />
           </div>
         )}
