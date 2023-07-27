@@ -86,19 +86,6 @@ function Site() {
     showUserDashboard();
   };
 
-  const getMonstersByOwner = async (owner) => {
-    if (!contract) {
-      return [];
-    }
-
-    try {
-      const ids = await contract.methods.getMonstersByOwner(owner).call();
-      // setMonsters(ids);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const showUserDashboard = async () => {
     if (!userWalletAddress) {
       document.title = "Web3 Login";
@@ -106,19 +93,8 @@ function Site() {
     }
 
     document.title = "Web3 Dashboard";
-    getWalletBalance();
-    getMonstersByOwner(userWalletAddress);
   };
 
-  const getWalletBalance = async () => {
-    if (!userWalletAddress || !web3) {
-      setBalance(null);
-      return;
-    }
-
-    const balance = await web3.eth.getBalance(userWalletAddress);
-    setBalance(web3.utils.fromWei(balance, "ether"));
-  };
 
   const monsterInputBtn = () => {
     navigate('/monster-input');
@@ -134,9 +110,6 @@ function Site() {
                 <p className="admin_info">
                 Current wallet address: <span>{userWalletAddress}</span>
                 </p>
-                <p className="admin_info">
-                Wallet balance: <span>{balance ? `${balance} ETH` : "Loading..."}</span>
-                </p>
                 <BigButton onClick={logout}>Logout</BigButton>
             </>
             ) : (
@@ -149,8 +122,8 @@ function Site() {
             )}
         </nav>
         <Routes>
-            <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn}/>} />
-            <Route path='/monster-output' element={<Output userInput={userInput}/>} />
+            <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} userConnected={userWalletAddress}/>} />
+            <Route path='/monster-output' element={<Output userInput={userInput} userWalletAddress={userWalletAddress}/>} />
             <Route path='/monster-input' element={<Input setUserInputFn={setUserInput}/>} />
         </Routes>
     </div>

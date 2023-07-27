@@ -88,7 +88,8 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
 };
 
 Output.propTypes = {
-  userInput: PropTypes.any
+  userInput: PropTypes.any,
+  userWalletAddress: PropTypes.string
 }
 
 export default Output;
