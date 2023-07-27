@@ -4,12 +4,9 @@ import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
 
 const Output = (props) => {
-  const [prevSkill, setprevSkill] = useState([]);
+  const [prevSkill, setPrevSkill] = useState([]);
   const [loading, setLoading] = useState(true);
   const [skillArrays, setSkillArrays] = useState([]);
-
-  // debug
-  const [debug, setDebug] = useState("")
 
   const getSkillInfos = async () => {
     const filtered_Input = `what skills do I need to learn if I want to become a ${props.userInput}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n
@@ -31,7 +28,6 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     try {
       const response = await fetch('http://localhost:8000/completions', options);
       const data = await response.json();
-      setDebug(data.choices[0].message.content)
       const MsgContent = data.choices[0].message.content;
       // Split message into skillInfos
       const skillInfos = MsgContent.split("|");
@@ -56,45 +52,42 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     }
   };
 
-  useEffect(() => {
-    if (props.userInput && skillArrays){  
-      setprevSkill(skillArrays); 
-    }
-  }, [skillArrays]); 
+  const findChildrenSkills = (parentId) => {
+    // Recursively find children skills of the given parent ID
+    return skillArrays.filter((skill) => skill.ParentID === parentId);
+  };
+
+  const createSkillTree = (parentId) => {
+    const childrenSkills = findChildrenSkills(parentId);
+    return childrenSkills.map((skill) => {
+      const children = createSkillTree(skill.SkillID);
+      return { ...skill, children };
+    });
+  };
 
   useEffect(() => {
-    if (skillArrays.length == 0) {
-      getSkillInfos();
-    }
-  }, [])
+    getSkillInfos();
+  }, []);
 
-  console.log(debug)
-  console.log(skillArrays.length)
+  useEffect(() => {
+    if (props.userInput && skillArrays.length > 0) {
+      const tree = createSkillTree('0');
+      setPrevSkill(tree);
+      setLoading(false);
+    }
+  }, [props.userInput, skillArrays]);
 
   return (
     <div className="app">
       <section className="output-container">
-        {loading && !skillArrays ? (
+        {loading ? (
           <div id='loading'>
             <p>Loading...</p>
           </div>
         ) : (
           <ul className="tree">
-            {prevSkill?.map((skillInfo, idx) => (
-              <li key={idx} className={skillInfo.ParentID === '0' ? 'parent' : ''}>
-                <div className="node">
-                  {/* 使用图片图标 */}
-                  <img src={skillIcon} alt="Skill Icon" className="icon" />
-                  <p>{`Skill: ${skillInfo.Skill}`}</p>
-                  <p>{`SkillID: ${skillInfo.SkillID}`}</p>
-                  <p>{`Parent: ${skillInfo.Parent}`}</p>
-                  <p>{`ParentID: ${skillInfo.ParentID}`}</p>
-                </div>
-                {/* 绘制连线 */}
-                {skillInfo.ParentID !== '0' && (
-                  <div className="line" />
-                )}
-              </li>
+            {prevSkill?.map((skill) => (
+              <TreeNode key={skill.SkillID} skill={skill} />
             ))}
           </ul>
         )}
@@ -106,5 +99,26 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
 Output.propTypes = {
   userInput: PropTypes.any
 }
+
+const TreeNode = ({ skill }) => {
+  return (
+    <li>
+      <div className="node">
+        <img src={skillIcon} alt="Skill Icon" className="icon" />
+        <p>{`Skill: ${skill.Skill}`}</p>
+        <p>{`SkillID: ${skill.SkillID}`}</p>
+        <p>{`Parent: ${skill.Parent}`}</p>
+        <p>{`ParentID: ${skill.ParentID}`}</p>
+      </div>
+      {skill.children.length > 0 && (
+        <ul className="tree">
+          {skill.children.map((child) => (
+            <TreeNode key={child.SkillID} skill={child} />
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+};
 
 export default Output;

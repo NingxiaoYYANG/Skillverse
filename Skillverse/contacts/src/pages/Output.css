@@ -5,11 +5,3 @@
   margin-right: 10px;
   vertical-align: middle;
 }
-
-.line {
-  position: absolute;
-  border-left: 1px solid #000;
-  height: 20px;
-  top: 15px;
-  left: 15px;
-}
