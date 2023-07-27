@@ -5,3 +5,18 @@
   margin-right: 10px;
   vertical-align: middle;
 }
+
+/* Add CSS styles for the tree container */
+.tree {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nodeLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
+import Tree from 'react-d3-tree';
+
 
 const Output = (props) => {
   const [prevSkill, setPrevSkill] = useState([]);
@@ -77,6 +79,18 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     }
   }, [props.userInput, skillArrays]);
 
+  const createReactD3TreeData = (node) => {
+    return {
+      name: node.Skill,
+      attributes: {
+        SkillID: node.SkillID,
+        Parent: node.Parent,
+        ParentID: node.ParentID,
+      },
+      children: node.children.map(createReactD3TreeData),
+    };
+  };
+
   return (
     <div className="app">
       <section className="output-container">
@@ -85,11 +99,22 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
             <p>Loading...</p>
           </div>
         ) : (
-          <ul className="tree">
-            {prevSkill?.map((skill) => (
-              <TreeNode key={skill.SkillID} skill={skill} />
-            ))}
-          </ul>
+          <div className="tree">
+            <Tree 
+              data={createReactD3TreeData({ Skill: props.userInput, children: prevSkill })}
+              orientation="vertical"
+              translate={{ x: 400, y: 200 }}
+              nodeSvgShape={{ shape: 'none' }}
+              nodeLabelComponent={{
+                render: (rd3tNode) => (
+                  <div className="nodeLabel">
+                    <img src={skillIcon} alt="Skill Icon" className="icon" />
+                    <p>{rd3tNode.name}</p>
+                  </div>
+                ),
+              }}
+            />
+          </div>
         )}
       </section>
     </div>
@@ -99,26 +124,5 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
 Output.propTypes = {
   userInput: PropTypes.any
 }
-
-const TreeNode = ({ skill }) => {
-  return (
-    <li>
-      <div className="node">
-        <img src={skillIcon} alt="Skill Icon" className="icon" />
-        <p>{`Skill: ${skill.Skill}`}</p>
-        <p>{`SkillID: ${skill.SkillID}`}</p>
-        <p>{`Parent: ${skill.Parent}`}</p>
-        <p>{`ParentID: ${skill.ParentID}`}</p>
-      </div>
-      {skill.children.length > 0 && (
-        <ul className="tree">
-          {skill.children.map((child) => (
-            <TreeNode key={child.SkillID} skill={child} />
-          ))}
-        </ul>
-      )}
-    </li>
-  );
-};
 
 export default Output;
