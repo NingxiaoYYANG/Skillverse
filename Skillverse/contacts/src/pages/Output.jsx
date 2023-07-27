@@ -54,6 +54,7 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
           ]
         ))
       }
+      
       setLoading(false);
     } catch (error) {
       console.log(error);
