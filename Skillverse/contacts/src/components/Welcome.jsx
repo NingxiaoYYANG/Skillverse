@@ -11,15 +11,14 @@ const Welcome = (props) => {
       <br />
       <b className='Introduction'>We are here to help you!</b>
       <br />
-      <BigButton onClick={props.monsterInputBtnFn}>READY!</BigButton>
-      {/* <BigButton onClick={props.monsterOutputBtnFn}>Test Output</BigButton> */}
+      <BigButton onClick={props.monsterInputBtnFn} disabled={!props.userConnected}>READY!</BigButton>
     </div>
   );
 };
 
 Welcome.propTypes = {
   monsterInputBtnFn: PropTypes.func,
-  // monsterOutputBtnFn: PropTypes.func
+  userConnected: PropTypes.bool
 };
 
 export default Welcome;

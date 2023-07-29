@@ -8,6 +8,7 @@ const BigButton = (props) => {
       sx={{ fontsize: '20pt' }}
       variant="outlined"
       onClick={props.onClick}
+      disabled={props.disabled}
       className={'btn'}
     >
       {props.children}
@@ -19,5 +20,6 @@ export default BigButton;
 
 BigButton.propTypes = {
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
   children: PropTypes.string,
 };

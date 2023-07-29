@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../pages/Output.css';
+import skillIcon from '../Monster/purple_icon.png';
+import Tree from 'react-d3-tree';
+
 
 const Output = (props) => {
-  const [prevSkill, setprevSkill] = useState([]);
+  const [prevSkill, setPrevSkill] = useState([]);
   const [loading, setLoading] = useState(true);
   const [skillArrays, setSkillArrays] = useState([]);
-
-  // debug
-  const [debug, setDebug] = useState("")
 
   const getSkillInfos = async () => {
     const filtered_Input = `what skills do I need to learn if I want to become a ${props.userInput}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n
@@ -30,11 +30,9 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     try {
       const response = await fetch('http://localhost:8000/completions', options);
       const data = await response.json();
-      setDebug(data.choices[0].message.content)
       const MsgContent = data.choices[0].message.content;
       // Split message into skillInfos
       const skillInfos = MsgContent.split("|");
-      console.log(skillInfos.length)
       for (const InfoString of skillInfos) {
         const InfoArray = InfoString.split(", ");
         setSkillArrays( prevs => (
@@ -48,6 +46,7 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
           ]
         ))
       }
+      
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -55,15 +54,58 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     }
   };
 
-  useEffect(() => {
-    if (props.userInput && skillArrays){  
-      getSkillInfos();
-      setprevSkill(skillArrays); 
-    }
-  }, [skillArrays]); 
+  const findChildrenSkills = (parentId) => {
+    // Recursively find children skills of the given parent ID
+    return skillArrays.filter((skill) => skill.ParentID === parentId);
+  };
 
-  console.log(debug)
-  console.log(skillArrays.length)
+  const createSkillTree = (parentId) => {
+    const childrenSkills = findChildrenSkills(parentId);
+    return childrenSkills.map((skill) => {
+      const children = createSkillTree(skill.SkillID);
+      return { ...skill, children };
+    });
+  };
+
+  useEffect(() => {
+    getSkillInfos();
+  }, []);
+
+  useEffect(() => {
+    if (props.userInput && skillArrays.length > 0) {
+      const tree = createSkillTree('0');
+      setPrevSkill(tree);
+      setLoading(false);
+    }
+  }, [props.userInput, skillArrays]);
+
+  const createReactD3TreeData = (node) => {
+    return {
+      name: node.Skill,
+      children: node.children.map(createReactD3TreeData),
+    };
+  };
+
+  const clickSkillNode = () => {
+    alert("1+1 = 2");
+  };
+
+  const SkillNode = () => {
+    return (
+      <g transform={`translate(-15,-25)`}>
+        <image xlinkHref={skillIcon} alt="Skill Icon" className="icon" width="30" height="30" onClick={clickSkillNode}/>
+      </g>
+    );
+  };
+
+  const renderRectSvgNode = ({ nodeDatum }) => (
+    <g>
+      <SkillNode/>
+      <text fill="black" strokeWidth="1" x="20">
+        {nodeDatum.name}
+      </text>
+    </g>
+  );
 
   return (
     <div className="app">
@@ -73,18 +115,14 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
             <p>Loading...</p>
           </div>
         ) : (
-          <ul className="tree">
-            {prevSkill?.map((skillInfo, idx) => 
-              <li key={idx} className={skillInfo.ParentID === '0' ? 'parent' : ''}>
-                <div className="node">
-                  <p>{`Skill: ${skillInfo.Skill}`}</p>
-                  <p>{`SkillID: ${skillInfo.SkillID}`}</p>
-                  <p>{`Parent: ${skillInfo.Parent}`}</p>
-                  <p>{`ParentID: ${skillInfo.ParentID}`}</p>
-                </div>
-              </li>
-            )}
-          </ul>
+          <div className="tree">
+            <Tree 
+              data={createReactD3TreeData({ Skill: props.userInput, children: prevSkill })}
+              orientation="vertical"
+              translate={{ x: 400, y: 200 }}
+              renderCustomNodeElement={renderRectSvgNode}
+            />
+          </div>
         )}
       </section>
     </div>
@@ -92,7 +130,8 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
 };
 
 Output.propTypes = {
-  userInput: PropTypes.any
+  userInput: PropTypes.any,
+  userWalletAddress: PropTypes.string
 }
 
 export default Output;
