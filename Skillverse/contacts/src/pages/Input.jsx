@@ -145,7 +145,7 @@ const Input = (props) => {
                     </option>
                   ))}
                 </select>
-                <BigButton id='confirm' onClick={getSkillInfos}> Confirm </BigButton>
+                <BigButton id='confirm' onClick={navigateToOutput}> Confirm </BigButton>
               </div>
             </div>
           )}
