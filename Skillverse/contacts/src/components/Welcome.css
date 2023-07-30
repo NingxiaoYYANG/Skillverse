@@ -7,14 +7,6 @@
     margin-bottom: 40px;
 }
 
-.Introduction {
-    align-items: center;
-    justify-content: center;
-    color: #0f1546;
-    font-size: 24px;
-    font-family: 'Raleway', sans-serif;
-}
-
 .Welcome_Section {
     align-items: center;
     justify-content: center;
@@ -25,21 +17,11 @@
     height: 50px; /* or adjust as needed */
   }
   
-.additional-content {
+.intro {
+    background-color: #44ec9e;
     margin: 40px 0;
-}
-  
-.additional-content h2 {
     font-size: 32px;;
     margin-bottom: 40px;
     text-align: center;
     font-family: "Lucida Console", "Courier New", monospace;
-}
-  
-.additional-content p {
-    font-size: 24px;;
-    margin-bottom: 80px;
-    .p2 {
-        font-family: Arial, Helvetica, sans-serif;
-      }
 }
