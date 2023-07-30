@@ -39,7 +39,7 @@ const Welcome = (props) => {
 
 Welcome.propTypes = {
   monsterInputBtnFn: PropTypes.func,
-  // monsterOutputBtnFn: PropTypes.func
+  userConnected: PropTypes.bool
 };
 
 export default Welcome;

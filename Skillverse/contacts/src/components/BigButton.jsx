@@ -22,6 +22,7 @@ const BigButton = (props) => {
       }}
       variant="contained"
       onClick={props.onClick}
+      disabled={props.disabled}
       className={'btn'}
     >
       {props.children}
@@ -33,5 +34,6 @@ export default BigButton;
 
 BigButton.propTypes = {
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
   children: PropTypes.string,
 };

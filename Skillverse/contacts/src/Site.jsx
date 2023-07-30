@@ -16,8 +16,7 @@ import Welcome from "./components/Welcome";
 import BigButton from "./components/BigButton";
 
 // Pages
-import Monster from './pages/Monster';
-import Output from './pages/Output';
+import Output from './pages/Output.jsx';
 import Input from './pages/Input.jsx';
 
 
@@ -27,8 +26,6 @@ function Site() {
   const [web3, setWeb3] = React.useState(null);
   const [balance, setBalance] = React.useState(null);
   const [contract, setContract] = React.useState(null);
-  const [monsters, setMonsters] = React.useState([]);
-  const [id, setId] = React.useState(null);
   const [userInput, setUserInput] = React.useState(null);
   const navigate = useNavigate();
 
@@ -89,19 +86,6 @@ function Site() {
     showUserDashboard();
   };
 
-  const getMonstersByOwner = async (owner) => {
-    if (!contract) {
-      return [];
-    }
-
-    try {
-      const ids = await contract.methods.getMonstersByOwner(owner).call();
-      setMonsters(ids);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const showUserDashboard = async () => {
     if (!userWalletAddress) {
       document.title = "Web3 Login";
@@ -109,32 +93,12 @@ function Site() {
     }
 
     document.title = "Web3 Dashboard";
-    getWalletBalance();
-    getMonstersByOwner(userWalletAddress);
   };
 
-  const getWalletBalance = async () => {
-    if (!userWalletAddress || !web3) {
-      setBalance(null);
-      return;
-    }
-
-    const balance = await web3.eth.getBalance(userWalletAddress);
-    setBalance(web3.utils.fromWei(balance, "ether"));
-  };
-
-
-//   const monsterPageBtn = () => {
-//     navigate('/monster')
-//   }
 
   const monsterInputBtn = () => {
     navigate('/monster-input');
   }
-
-  const monsterOutputBtn = () => {
-    navigate('/monster-output');
-  };
   
 
   return (
@@ -145,9 +109,6 @@ function Site() {
                 <h1 className="admin_title">Web3 Dashboard</h1>
                 <p className="admin_info">
                 Current wallet address: <span>{userWalletAddress}</span>
-                </p>
-                <p className="admin_info">
-                Wallet balance: <span>{balance ? `${balance} ETH` : "Loading..."}</span>
                 </p>
                 <BigButton onClick={logout}>Logout</BigButton>
             </>
@@ -161,9 +122,8 @@ function Site() {
             )}
         </nav>
         <Routes>
-            <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} monsterOutputBtnFn={monsterOutputBtn} />} />
-            <Route path='/monster' element={<Monster setId={setId} setContract={setContract} />} />
-            <Route path='/monster-output' element={<Output userInput={userInput}/>} />
+            <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} userConnected={userWalletAddress}/>} />
+            <Route path='/monster-output' element={<Output userInput={userInput} userWalletAddress={userWalletAddress}/>} />
             <Route path='/monster-input' element={<Input setUserInputFn={setUserInput}/>} />
         </Routes>
     </div>
