@@ -11,7 +11,7 @@ const Welcome = (props) => {
       <p className='Introduction'>
         We are here to help you!
       </p>
-      <BigButton onClick={props.monsterInputBtnFn}>READY!</BigButton>
+      <BigButton onClick={props.monsterInputBtnFn} disabled={!props.userConnected}>READY!</BigButton>
       {/* <BigButton onClick={props.monsterOutputBtnFn}>Test Output</BigButton> */}
       <div className="space"></div>
       <div className="additional-content">
