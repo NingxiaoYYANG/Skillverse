@@ -17,11 +17,13 @@
     height: 50px; /* or adjust as needed */
   }
   
-.intro {
+.intro h2 {
     background-color: #44ec9e;
+    border-radius: 10px;
+    padding: 25px 10px;
     margin: 40px 0;
     font-size: 32px;;
     margin-bottom: 40px;
-    text-align: center;
+    text-align: left;
     font-family: "Lucida Console", "Courier New", monospace;
 }

@@ -8,9 +8,9 @@ const Welcome = (props) => {
   return (
     <div className='Welcome_Section'>
       <h1  className='Title'>Welcome To Skillverse</h1 >
-      <div className="space"></div>
       <div className="intro">
         <h2>We are here to help you!</h2>
+        <div className="space"></div>
         <h2>Are you ready to tell us some informatio about yourself? </h2>
       </div>
       <BigButton onClick={props.monsterInputBtnFn} disabled={!props.userConnected}>READY!</BigButton>
