@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import PropTypes from 'prop-types';
 import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
@@ -9,6 +9,7 @@ const Output = (props) => {
   const [prevSkill, setPrevSkill] = useState([]);
   const [loading, setLoading] = useState(true);
   const [skillArrays, setSkillArrays] = useState([]);
+  const [learnedSkills, setLearnedSkills] = useState({});
 
   const getSkillInfos = async () => {
     const filtered_Input = `what skills do I need to learn if I want to become a ${props.userInput}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n
@@ -41,7 +42,8 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
                   Skill: InfoArray[0],
                   SkillID: InfoArray[1],
                   Parent: InfoArray[2],
-                  ParentID: InfoArray[3]             
+                  ParentID: InfoArray[3],
+                  isLearned: false            
               }
           ]
         ))
@@ -62,13 +64,31 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
   const createSkillTree = (parentId) => {
     const childrenSkills = findChildrenSkills(parentId);
     return childrenSkills.map((skill) => {
+      const isLearned = learnedSkills[skill.SkillID] || false; // Set isLearned to true if the skillID exists in learnedSkills, otherwise set it to false
       const children = createSkillTree(skill.SkillID);
-      return { ...skill, children };
+      return { ...skill, children: children || [], isLearned }; // Ensure children is an array, otherwise set it to an empty array
     });
   };
+  
 
   useEffect(() => {
     getSkillInfos();
+
+    if (props.userInput && skillArrays.length > 0) {
+      const tree = createSkillTree('0');
+      setPrevSkill(tree);
+      setLoading(false);
+  
+      // Initialize the learnedSkills state
+      const initialLearnedSkills = {};
+      skillArrays.forEach((skill) => {
+        // Set the initial learned state for all skills except the root
+        if (skill.ParentID !== "0") {
+          initialLearnedSkills[skill.SkillID] = false;
+        }
+      });
+      setLearnedSkills(initialLearnedSkills);
+    }
   }, []);
 
   useEffect(() => {
@@ -76,6 +96,16 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
       const tree = createSkillTree('0');
       setPrevSkill(tree);
       setLoading(false);
+  
+      // Initialize the learnedSkills state
+      const initialLearnedSkills = {};
+      skillArrays.forEach((skill) => {
+        // Set the initial learned state for all skills except the root
+        if (skill.ParentID !== "0") {
+          initialLearnedSkills[skill.SkillID] = false;
+        }
+      });
+      setLearnedSkills(initialLearnedSkills);
     }
   }, [props.userInput, skillArrays]);
 
@@ -86,21 +116,82 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     };
   };
 
-  const clickSkillNode = () => {
-    alert("1+1 = 2");
-  };
+    // Use useRef to store the latest value of learnedSkills
+    const learnedSkillsRef = useRef(learnedSkills);
+    useEffect(() => {
+      learnedSkillsRef.current = learnedSkills;
+    }, [learnedSkills]);
 
-  const SkillNode = () => {
+    const markSkillAsLearned = (node, skillId) => {
+      if (node.SkillID === skillId) {
+        // Create a new object with the updated isLearned property
+        return { ...node, isLearned: true };
+      } else if (node.children && Array.isArray(node.children)) {
+        // Recursively search for the skill to be marked as learned in children
+        const updatedChildren = node.children.map((child) =>
+          markSkillAsLearned(child, skillId)
+        );
+        return { ...node, children: updatedChildren };
+      }
+      // If the current node is not the skill we are looking for or has no children,
+      // just return the original node unchanged
+      return node;
+    };
+    
+  
+  
+  const clickSkillNode = (nodeDatum) => {
+    // Access the latest learnedSkills value using learnedSkillsRef.current
+    const isLearned = learnedSkillsRef.current[nodeDatum.SkillID];
+    if (!isLearned) {
+      // Prompt the user for an answer to the question
+      const answer = prompt("1 + 1 = ?");
+  
+      // Check if the answer is correct
+      if (answer && answer.trim() === "2") {
+        // If the answer is correct, show an alert with a success message
+        alert("Correct! You answered 1 + 1 = 2");
+  
+        // Mark the skill as learned in the state
+        setLearnedSkills((prevState) => ({
+          ...prevState,
+          [nodeDatum.SkillID]: true,
+        }));
+        console.log(nodeDatum);
+        console.log("Updated learnedSkills state:", learnedSkills);
+        // Update the tree data structure with the learned skill
+        setPrevSkill((prevTree) => markSkillAsLearned(prevTree, nodeDatum.SkillID));
+      } else {
+        // If the answer is incorrect or empty, show an alert with an error message
+        alert("Incorrect answer. Please try again.");
+      }
+    }
+  };
+  
+  
+
+  const SkillNode = ({ nodeDatum }) => {
+    const isLearned = learnedSkills[nodeDatum.SkillID];
+    const iconTransform = isLearned ? "rotate(90)" : "";
+
     return (
       <g transform={`translate(-15,-25)`}>
-        <image xlinkHref={skillIcon} alt="Skill Icon" className="icon" width="30" height="30" onClick={clickSkillNode}/>
+        <image
+          xlinkHref={skillIcon}
+          alt="Skill Icon"
+          className="icon"
+          width="30"
+          height="30"
+          onClick={() => clickSkillNode(nodeDatum)}
+          style={{ transform: iconTransform }}
+        />
       </g>
     );
   };
-
+  
   const renderRectSvgNode = ({ nodeDatum }) => (
     <g>
-      <SkillNode/>
+      <SkillNode nodeDatum={nodeDatum} />
       <text fill="black" strokeWidth="1" x="20">
         {nodeDatum.name}
       </text>
