@@ -2,26 +2,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Raleway:ital,wght@1,300&display=swap');
 
 
-.Interest_question {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-}
-
+.Interest_question,
 .career_question {
     align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
     font-size: 20px;
+    margin-bottom: 2rem;
 }
 
 select {
-    font-size: 20px;  /* Adjust to suit your needs, affects the size of the text inside the dropdown */
-    width: 300px;      /* Adjust to suit your needs, affects the dropdown's width */
-    height: 40px;      /* Adjust to suit your needs, affects the dropdown's height */
-    padding: 10px;     /* Adjust to suit your needs, affects the inner space of the dropdown */
+    font-size: 20px;  
+    width: 400px;      
+    height: 50px;     
+    padding: 10px;
+    border-radius: 4px; 
+    border: 1px solid #6568F4;
+    background: white;
+    appearance: none; /* Removes default chrome and safari style */
+    -webkit-appearance: none; /* Removes default chrome and safari style */
+    -moz-appearance: none; /* Removes default Firefox style */
 }
 
+/* Add custom arrow for select */
+select::-ms-expand {
+    display: none; /* for IE 11 */
+}
+
+select::after {
+    content: '▾';
+    position: absolute;
+    transform: translateY(-50%);
+    right: 10px;
+    top: 50%;
+    pointer-events: none;
+}
+
+/* Add focus effect */
+select:focus {
+    outline: none;
+    border-color: #6568F4;
+    box-shadow: 0 0 0 2px rgba(101, 104, 244, 0.25);
+}

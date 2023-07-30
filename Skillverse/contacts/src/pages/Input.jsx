@@ -119,35 +119,38 @@ const Input = (props) => {
 
     return (
         <div>
-    
           <div className="Interest_question">
             <h1>What is your area of interest?</h1>
-            <select value={areaOfInterest} onChange={handleInterestChange}>
-              <option value="">Select an interest</option>
-              {InterestOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            <div class="select-wrapper">
+              <select value={areaOfInterest} onChange={handleInterestChange}>
+                <option value="">Select an interest</option>
+                {InterestOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-    
+      
           {areaOfInterest && positions && (
             <div className="career_question">
-                <h1>What is your career goal?</h1>
+              <h1>What is your career goal?</h1>
+              <div class="select-wrapper">
                 <select value={position} onChange={handlePositionChange}>
-                    <option value="">Select a position</option>
-                    {positions.map((position) => (
+                  <option value="">Select a position</option>
+                  {positions.map((position) => (
                     <option key={position.value} value={position.value}>
-                        {position.label}
+                      {position.label}
                     </option>
-                    ))}
+                  ))}
                 </select>
                 <BigButton id='confirm' onClick={getSkillInfos}> Confirm </BigButton>
+              </div>
             </div>
           )}
         </div>
-    )
+    );
 };
 
 Input.protoTypes = {
