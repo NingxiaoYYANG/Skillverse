@@ -4,12 +4,9 @@
   height: 32px;
   margin-right: 10px;
   vertical-align: middle;
-  transition: transform 0.3s ease;
+  border: 2px solid transparent;
 }
 
-.icon.learned {
-  transform: rotate(90deg);
-}
 
 /* Add CSS styles for the tree container */
 .tree {
