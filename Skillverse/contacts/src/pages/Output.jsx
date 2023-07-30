@@ -149,6 +149,8 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
     </g>
   );
 
+    // To-Do: root node disabled for clicking. Only change image when all the skill node has been learned
+
   return (
     <div className="app">
       <section className="output-container">
