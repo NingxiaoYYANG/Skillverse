@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BigButton from '../components/BigButton';
 import PropTypes from 'prop-types';
-
+import './Input.css';
 
 const Input = (props) => {
     const [position, setPosition] = useState('')
@@ -119,35 +119,38 @@ const Input = (props) => {
 
     return (
         <div>
-    
-          <div>
+          <div className="Interest_question">
             <h1>What is your area of interest?</h1>
-            <select value={areaOfInterest} onChange={handleInterestChange}>
-              <option value="">Select an interest</option>
-              {InterestOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            <div class="select-wrapper">
+              <select value={areaOfInterest} onChange={handleInterestChange}>
+                <option value="">Select an interest</option>
+                {InterestOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-    
+      
           {areaOfInterest && positions && (
-            <div>
-                <h1>What is your career goal?</h1>
+            <div className="career_question">
+              <h1>What is your career goal?</h1>
+              <div class="select-wrapper">
                 <select value={position} onChange={handlePositionChange}>
-                    <option value="">Select a position</option>
-                    {positions.map((position) => (
+                  <option value="">Select a position</option>
+                  {positions.map((position) => (
                     <option key={position.value} value={position.value}>
-                        {position.label}
+                      {position.label}
                     </option>
-                    ))}
+                  ))}
                 </select>
                 <BigButton id='confirm' onClick={navigateToOutput}> Confirm </BigButton>
+              </div>
             </div>
           )}
         </div>
-    )
+    );
 };
 
 Input.protoTypes = {
