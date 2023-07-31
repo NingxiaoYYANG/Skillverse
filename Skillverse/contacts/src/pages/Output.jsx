@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
 import Tree from 'react-d3-tree';
+import { Spin } from 'antd';
 
 
 const Output = (props) => {
@@ -111,8 +112,8 @@ HTML, 1, None, 0|CSS, 2, None, 0|JavaScript, 3, None, 0|DOM Manipulation, 4, Jav
     <div className="app">
       <section className="output-container">
         {loading ? (
-          <div id='loading'>
-            <p>Loading...</p>
+          <div className="loading">
+            <Spin />
           </div>
         ) : (
           <div className="tree">
