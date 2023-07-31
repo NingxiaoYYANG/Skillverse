@@ -6,7 +6,6 @@ import learnIcon from '../Monster/red_icon.png';
 import Tree from 'react-d3-tree';
 import { Spin } from 'antd';
 
-
 const Output = (props) => {
   const [prevSkill, setPrevSkill] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -71,6 +70,16 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
       return { ...skill, children };
     });
   };
+
+  const areAllSkillsLearned = (node) => {
+    if (!node.children || node.children.length === 0) {
+      // Leaf node, check if it is learned
+      return learnedSkills[node.id];
+    } else {
+      // Non-leaf node, check if all children are learned
+      return node.children.every(areAllSkillsLearned);
+    }
+  };
   
   useEffect(() => {
     getSkillInfos();
@@ -93,6 +102,10 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
   };
   
   const clickSkillNode = (nodeDatum) => {
+    if (nodeDatum.id === 0) {
+      return; // Disable clicking on the root node
+    }
+
     // Check if the skill is learned
     const isLearned = learnedSkills[nodeDatum.id];
 
@@ -123,16 +136,36 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
   const SkillNode = ({ nodeDatum }) => {
     // Check if the skill is learned
     const isLearned = learnedSkills[nodeDatum.id];
-  
-  // Conditionally set the icon image based on isLearned
+
+    // Check if the root node is clicked (id: 0)
+    if (nodeDatum.id === 0) {
+      // Change root node image based on the condition
+      const iconImage = areAllSkillsLearned(nodeDatum) ? learnIcon : skillIcon;
+
+      return (
+        <g transform={`translate(-15,-25)`}>
+          <image
+            xlinkHref={iconImage}
+            alt="Skill Icon"
+            className="icon"
+            width="30"
+            height="30"
+            // Disable clicking on the root node
+            onClick={nodeDatum.id === 0 ? undefined : () => clickSkillNode(nodeDatum)}
+          />
+        </g>
+      );
+    }
+
+    // Change icon image for other nodes based on isLearned
     const iconImage = isLearned ? learnIcon : skillIcon;
-  
+
     return (
       <g transform={`translate(-15,-25)`}>
         <image
           xlinkHref={iconImage}
           alt="Skill Icon"
-          className='icon'
+          className="icon"
           width="30"
           height="30"
           onClick={() => clickSkillNode(nodeDatum)}
@@ -149,8 +182,6 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
       </text>
     </g>
   );
-
-    // To-Do: root node disabled for clicking. Only change image when all the skill node has been learned
 
   return (
     <div className="app">
