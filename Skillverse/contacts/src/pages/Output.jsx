@@ -4,6 +4,7 @@ import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
 import learnIcon from '../Monster/red_icon.png';
 import Tree from 'react-d3-tree';
+import { Spin } from 'antd';
 
 
 const Output = (props) => {
@@ -14,7 +15,7 @@ const Output = (props) => {
 
   const getSkillInfos = async () => {
     const filtered_Input = `what skills do I need to learn if I want to become a ${props.userInput}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n
-  Answer in the following format:\n\
+  Answer in the following format with no empty string:\n\
 Skill, SkillID, Parent, ParentID, isLearned|\n\
 Here is an example to follow:\n\
 HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM Manipulation, 4, JavaScript, 3, false|CSS Frameworks, 5, CSS, 2, false|Bootstrap, 6, CSS Frameworks, 5, false|JavaScript Libraries, 7, JavaScript, 3, false|jQuery, 8, JavaScript Libraries, 7, false|React, 9, JavaScript Libraries, 7, false|Redux, 10, React, 9, false|Angular, 11, JavaScript Libraries, 7, false`;
@@ -86,13 +87,14 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
   const createReactD3TreeData = (node) => {
     return {
       name: node.Skill,
+      id: node.SkillID,
       children: node.children.map(createReactD3TreeData),
     };
   };
   
   const clickSkillNode = (nodeDatum) => {
     // Check if the skill is learned
-    const isLearned = learnedSkills[nodeDatum.name];
+    const isLearned = learnedSkills[nodeDatum.id];
 
     // If the skill is already learned, do not show the alert
     if (isLearned) {
@@ -110,7 +112,7 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
       // Update the learnedSkills state with the learned skill
       setLearnedSkills((prevLearnedSkills) => ({
         ...prevLearnedSkills,
-        [nodeDatum.name]: true,
+        [nodeDatum.id]: true,
       }));
     } else {
       // If the answer is incorrect or empty, show an alert with an error message
@@ -120,11 +122,10 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
   
   const SkillNode = ({ nodeDatum }) => {
     // Check if the skill is learned
-    const isLearned = learnedSkills[nodeDatum.name];
+    const isLearned = learnedSkills[nodeDatum.id];
   
   // Conditionally set the icon image based on isLearned
     const iconImage = isLearned ? learnIcon : skillIcon;
-    console.log(iconImage);
   
     return (
       <g transform={`translate(-15,-25)`}>
@@ -149,17 +150,19 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
     </g>
   );
 
+    // To-Do: root node disabled for clicking. Only change image when all the skill node has been learned
+
   return (
     <div className="app">
       <section className="output-container">
         {loading ? (
-          <div id='loading'>
-            <p>Loading...</p>
+          <div className="loading">
+            <Spin />
           </div>
         ) : (
           <div className="tree">
             <Tree 
-              data={createReactD3TreeData({ Skill: props.userInput, children: prevSkill })}
+              data={createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })}
               orientation="vertical"
               translate={{ x: 750, y: 200 }}
               renderCustomNodeElement={renderRectSvgNode}
