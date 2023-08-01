@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
 import learnIcon from '../Monster/red_icon.png';
+import iniEgg from '../Monster/egg.png';
+import monsterNFT from '../Monster/black_monster.png';
+import BigButton from '../components/BigButton';
 import Tree from 'react-d3-tree';
 import { Spin } from 'antd';
 
@@ -191,18 +194,37 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
             <Spin />
           </div>
         ) : (
-          <div className="tree">
-            <Tree 
-              data={createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })}
-              orientation="vertical"
-              translate={{ x: 750, y: 200 }}
-              renderCustomNodeElement={renderRectSvgNode}
-            />
+          <div>
+            <div className="tree">
+              <Tree 
+                data={createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })}
+                orientation="vertical"
+                translate={{ x: 750, y: 200 }}
+                renderCustomNodeElement={renderRectSvgNode}
+              />
+              <div>
+                {/* Conditionally render the monsterNFT image */}
+                {areAllSkillsLearned(createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })) ? (
+                  <div>
+                    <p className='ini-egg-text'>Congratulation, You Got It!!!</p>
+                    <img src={monsterNFT} alt="Monster NFT" className="monster-image" />
+                    {/* Todo: connect NTF to wallet (collectNTF)*/}
+                    {/* <BigButton> Collect NTF </BigButton> */}
+                  </div>
+                ) : (
+                  <div>
+                    <p className='ini-egg-text'>This is Your Initial Egg!!</p>
+                    <img src={iniEgg} alt="Initial Egg" className="ini-egg-image" />
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
       </section>
     </div>
   );
+  
 };
 
 Output.propTypes = {
