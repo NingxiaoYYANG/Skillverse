@@ -1,4 +1,10 @@
 /* Add CSS styles for the icon and line */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .icon {
   width: 32px;
   height: 32px;
@@ -12,7 +18,7 @@
   width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   position: relative; /* Add relative positioning to the tree container */
 }
@@ -31,20 +37,41 @@
   border-radius: 5px;
 }
 
+
+
+.study_rogress {
+  flex: 1;
+  padding: 20px;
+  height: 700px;
+  width: 400px;
+}
+
+.study_rogress div {
+  height: 700px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Add CSS for the initial egg image and text */
 .ini-egg-image {
   max-width: 100px; /* You can adjust the image size as needed */
-  margin-top: -300px;
-  margin-right: 300px;
+  /* margin-top: -300px;
+  margin-right: 300px; */
+}
+
+.monster-image{
+  max-width: 200px;
+  /* margin-top: -20px;
+  margin-right: 200px; */
 }
 
 .ini-egg-text {
   font-size: 20px;
-  position: absolute; /* Position the text absolutely within the tree container */
-  top: 60px; /* Adjust the top position to move the text up or down */
-  left: 30px; /* Adjust the left position to move the text left or right */
-  margin-top: 300px;
-  margin-left: 75%;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-bottom: 30px;
   font-family: 'Orbitron', sans-serif;
   color: #F394F8;
 }
@@ -52,16 +79,8 @@
 /* Create an arrow using a pseudo-element (::before) */
 .ini-egg-text::before {
   content: '';
-  position: absolute;
-  border: 10px solid transparent;
-  border-right-color: #9a53d0; /* Change the color of the arrow here */
-  top: 40px; /* Adjust the top position to position the arrow */
-  left: 110px; /* Adjust the left position to position the arrow */
-  transform: rotate(-45deg); /* Rotate the arrow to point towards the egg */
-}
-
-.monster-image{
-  max-width: 200px;
-  margin-top: -20px;
-  margin-right: 200px;
+  border: 15px solid transparent;
+  border-right-color: #9a53d0;
+  transform: rotate(-45deg); 
+  /* Rotate the arrow to point towards the egg */
 }

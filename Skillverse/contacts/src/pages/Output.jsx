@@ -21,8 +21,8 @@ const Output = (props) => {
 Skill, SkillID, Parent, ParentID, isLearned|\n\
 Here is an example to follow:\n\
 HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM Manipulation, 4, JavaScript, 3, false|CSS Frameworks, 5, CSS, 2, false|Bootstrap, 6, CSS Frameworks, 5, false|JavaScript Libraries, 7, JavaScript, 3, false|jQuery, 8, JavaScript Libraries, 7, false|React, 9, JavaScript Libraries, 7, false|Redux, 10, React, 9, false|Angular, 11, JavaScript Libraries, 7, false`;
-
-  const options = {
+  
+const options = {
     method: 'POST',
     headers: {
       "Content-type": 'application/json',
@@ -202,18 +202,19 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
                 translate={{ x: 750, y: 200 }}
                 renderCustomNodeElement={renderRectSvgNode}
               />
-              <div>
+              <div className='study_rogress'>
                 {/* Conditionally render the monsterNFT image */}
                 {areAllSkillsLearned(createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })) ? (
                   <div>
                     <p className='ini-egg-text'>Congratulation, You Got It!!!</p>
                     <img src={monsterNFT} alt="Monster NFT" className="monster-image" />
                     {/* Todo: connect NTF to wallet (collectNTF)*/}
-                    {/* <BigButton> Collect NTF </BigButton> */}
+                    <BigButton> Collect NTF </BigButton>
                   </div>
                 ) : (
                   <div>
                     <p className='ini-egg-text'>This is Your Initial Egg!!</p>
+                    <br/>
                     <img src={iniEgg} alt="Initial Egg" className="ini-egg-image" />
                   </div>
                 )}
