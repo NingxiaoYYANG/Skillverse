@@ -7,7 +7,6 @@
   border: 2px solid transparent;
 }
 
-
 /* Add CSS styles for the tree container */
 .tree {
   width: 100%;
@@ -15,6 +14,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative; /* Add relative positioning to the tree container */
 }
 
 .nodeLabel {
@@ -29,4 +29,39 @@
   padding: 30px 50px;
   text-align: center;
   border-radius: 5px;
+}
+
+/* Add CSS for the initial egg image and text */
+.ini-egg-image {
+  max-width: 100px; /* You can adjust the image size as needed */
+  margin-top: -300px;
+  margin-right: 300px;
+}
+
+.ini-egg-text {
+  font-size: 20px;
+  position: absolute; /* Position the text absolutely within the tree container */
+  top: 60px; /* Adjust the top position to move the text up or down */
+  left: 30px; /* Adjust the left position to move the text left or right */
+  margin-top: 300px;
+  margin-left: 75%;
+  font-family: 'Orbitron', sans-serif;
+  color: #F394F8;
+}
+
+/* Create an arrow using a pseudo-element (::before) */
+.ini-egg-text::before {
+  content: '';
+  position: absolute;
+  border: 10px solid transparent;
+  border-right-color: #9a53d0; /* Change the color of the arrow here */
+  top: 40px; /* Adjust the top position to position the arrow */
+  left: 110px; /* Adjust the left position to position the arrow */
+  transform: rotate(-45deg); /* Rotate the arrow to point towards the egg */
+}
+
+.monster-image{
+  max-width: 200px;
+  margin-top: -20px;
+  margin-right: 200px;
 }
