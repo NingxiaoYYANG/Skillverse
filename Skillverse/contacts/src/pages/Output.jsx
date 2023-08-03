@@ -9,12 +9,27 @@ import BigButton from '../components/BigButton';
 import Tree from 'react-d3-tree';
 import { Spin } from 'antd';
 
+// web3 related
+import { ethers } from 'ethers';
+import AIGC_NFT_ABI from '../contractABI/AIGC_NFT_ABI.json';
+
 const Output = (props) => {
   const [prevSkill, setPrevSkill] = useState([]);
   const [loading, setLoading] = useState(true);
   const [skillArrays, setSkillArrays] = useState([]);
   const [learnedSkills, setLearnedSkills] = useState({});
 
+  // For connecting to NFT solidity contract
+  const contractAddress = '0xe86c42fc5d2e27c1d4536d3ac0c79aa872f5ef16'; // Replace with the actual contract address
+  const ownerAddress = '0xCa1Bdb955d9fFB14580e35b991a29a6Dd295304C';
+  // Initialize the contract instance
+  // Provider for sending transactions (using MetaMask)
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  
+  // Initialize the contract instance using the ABI and the provider
+  const contract = new ethers.Contract(contractAddress, AIGC_NFT_ABI, provider.getSigner());
+
+  // For getting response from AI
   const getSkillInfos = async () => {
     const filtered_Input = `what skills do I need to learn if I want to become a ${props.userInput}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n
   Answer in the following format with no empty string:\n\
@@ -61,6 +76,7 @@ const options = {
   }
 };
 
+  // For generating the tree diagram
   const findChildrenSkills = (parentId) => {
     // Recursively find children skills of the given parent ID
     return skillArrays.filter((skill) => skill.ParentID === parentId);
@@ -83,18 +99,6 @@ const options = {
       return node.children.every(areAllSkillsLearned);
     }
   };
-  
-  useEffect(() => {
-    getSkillInfos();
-  }, []);
-
-  useEffect(() => {
-    if (props.userInput && skillArrays.length > 0) {
-      const tree = createSkillTree('0');
-      setPrevSkill(tree);
-      setLoading(false);
-    }
-  }, [props.userInput, skillArrays]);
 
   const createReactD3TreeData = (node) => {
     return {
@@ -186,6 +190,45 @@ const options = {
     </g>
   );
 
+  const collectNft = async () => {
+    try {
+      // Pinata NFT Minting, test NFT. 
+      // This is just one NFT for demo purpose. This will be replaced with our NFT database in the future.
+      const nftURL =  'https://gateway.pinata.cloud/ipfs/QmXQvHnWnkM8NcqifLMoiBxGoE24nbaxf2SBKA7PovYSdb/1.json';
+
+      // // Mint the NFT using the signer (MetaMask wallet)
+      // const transaction = await contract.mint(nftURL);
+
+      // Transfer the NFT from contract to user's wallet using the signer (MetaMask wallet)
+      const transaction = await contract.transferFrom(ownerAddress, props.userWalletAddress, 1);
+
+      // Wait for the transaction to be mined and get the receipt
+      await transaction.wait();
+
+      // Optional: Show a success message or update the UI.
+      console.log(transaction)
+
+    } catch (error) {
+      console.error('Error calling safeTransferFrom():', error);
+    }
+  };
+  
+
+  // For Initialisation
+
+  useEffect(() => {
+    getSkillInfos();
+  }, []);
+
+  useEffect(() => {
+    if (props.userInput && skillArrays.length > 0) {
+      const tree = createSkillTree('0');
+      setPrevSkill(tree);
+      setLoading(false);
+    }
+  }, [props.userInput, skillArrays]);
+
+
   return (
     <div className="app">
       <section className="output-container">
@@ -209,7 +252,7 @@ const options = {
                     <p className='ini-egg-text'>Congratulation, You Got It!!!</p>
                     <img src={monsterNFT} alt="Monster NFT" className="monster-image" />
                     {/* Todo: connect NTF to wallet (collectNTF)*/}
-                    <BigButton> Collect NTF </BigButton>
+                    <BigButton onClick={collectNft}> Collect NTF </BigButton>
                   </div>
                 ) : (
                   <div>

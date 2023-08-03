@@ -9,7 +9,6 @@ import {
 
 // Web3 content
 import Web3 from "web3";
-import { abi, address } from "./config.js";
 
 // Components
 import Welcome from "./components/Welcome";
@@ -24,8 +23,6 @@ import Input from './pages/Input.jsx';
 function Site() {
   const [userWalletAddress, setUserWalletAddress] = React.useState(null);
   const [web3, setWeb3] = React.useState(null);
-  const [balance, setBalance] = React.useState(null);
-  const [contract, setContract] = React.useState(null);
   const [userInput, setUserInput] = React.useState(null);
   const navigate = useNavigate();
 
@@ -52,13 +49,6 @@ function Site() {
 
     load();
   }, []);
-
-  React.useEffect(() => {
-    if (web3) {
-      const contractInstance = new web3.eth.Contract(abi, address);
-      setContract(contractInstance);
-    }
-  }, [web3]);
 
   const loginWithEth = async () => {
     try {
