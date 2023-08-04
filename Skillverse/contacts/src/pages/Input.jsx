@@ -118,11 +118,11 @@ const Input = (props) => {
     }
 
     return (
-        <div>
+        <div className="Input_Section">
           <div className="Interest_question">
-            <h1>What is your area of interest?</h1>
-            <div class="select-wrapper">
-              <select value={areaOfInterest} onChange={handleInterestChange}>
+            <h1 className="input-heading">What is your area of interest?</h1>
+            <div className="select-wrapper">
+              <select value={areaOfInterest} onChange={handleInterestChange} className="input-select">
                 <option value="">Select an interest</option>
                 {InterestOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -135,9 +135,9 @@ const Input = (props) => {
       
           {areaOfInterest && positions && (
             <div className="career_question">
-              <h1>What is your career goal?</h1>
-              <div class="select-wrapper">
-                <select value={position} onChange={handlePositionChange}>
+              <h1 className="input-heading">What is your career goal?</h1>
+              <div className="select-wrapper">
+                <select value={position} onChange={handlePositionChange} className="input-select">
                   <option value="">Select a position</option>
                   {positions.map((position) => (
                     <option key={position.value} value={position.value}>
@@ -145,7 +145,9 @@ const Input = (props) => {
                     </option>
                   ))}
                 </select>
-                <BigButton id='confirm' onClick={navigateToOutput}> Confirm </BigButton>
+                <div className='button'>
+                  <BigButton id='confirm' onClick={navigateToOutput}> Confirm </BigButton>
+                </div>
               </div>
             </div>
           )}

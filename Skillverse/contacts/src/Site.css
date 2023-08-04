@@ -1,0 +1,177 @@
+/* Imports */
+@import url('https://fonts.googleapis.com/css2?family=Blender+Pro+Book&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Blender Pro Book', sans-serif;
+  background-color: #0F1046;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images5.alphacoders.com/985/thumb-1920-985798.png'); 
+  background-size: cover;
+  background-repeat: no-repeat; 
+  background-position: center top; 
+  min-height: calc(100vh - 110px); 
+  color: #97E3FE;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* Add a slight text shadow */
+}
+
+/* Site Container */
+.site-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #2843AD;
+  padding: 20px 0;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.admin_title {
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* Add a slight text shadow */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-address {
+  margin-left: 10px;
+}
+
+.login-btn,
+.logout-btn {
+  background-color: #F394F8;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3); /* Add a slight text shadow */
+}
+
+.login-btn:hover,
+.logout-btn:hover {
+  background-color: #9A53D0;
+}
+
+/* BigButton Overrides */
+.btn {
+align-items: center;
+justify-content: center;
+background-color: #97E3FE;
+}
+
+.btn:hover {
+background-color: #818DE0;
+color: #fff;
+}
+
+/* Output Section */
+.output-container {
+text-align: center;
+padding: 50px 0;
+}
+
+.output-heading {
+font-size: 36px;
+margin-bottom: 20px;
+}
+
+.output-text {
+font-size: 18px;
+}
+
+/* Input Section */
+.Input_Section {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 100px 0;
+}
+
+.input-heading {
+font-size: 36px;
+color: #97E3FE;
+margin-bottom: 20px;
+}
+
+.input-select {
+width: 100%;
+padding: 10px;
+border: 2px solid #818DE0;
+border-radius: 5px;
+background-color: transparent;
+color: #97E3FE;
+font-size: 20px;
+margin-bottom: 30px;
+cursor: pointer;
+transition: border-color 0.3s ease-in-out;
+}
+
+.input-select:focus {
+outline: none;
+border-color: #9A53D0;
+}
+
+.input-select option {
+background-color: #0F1046;
+color: #97E3FE;
+font-size: 20px;
+padding: 10px 15px;
+}
+
+/* Confirm Button */
+#confirm {
+background-color: #9A53D0;
+}
+
+#confirm:hover {
+background-color: #2843AD;
+color: #fff;
+}
+
+.back-btn {
+    background-color: transparent;
+    border: none;
+    color: #F394F8;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    margin-right: 20px; /* Add margin to the right to separate from the "Logged in as" section */
+  }
+  
+  .back-btn:hover {
+    color: #9A53D0;
+  }
+  
+  /* Adjust the user-info styling */
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-info span {
+    margin-right: 10px; /* Add margin to separate elements */
+  }

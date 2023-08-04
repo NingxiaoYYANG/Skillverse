@@ -202,17 +202,16 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
                 translate={{ x: 750, y: 200 }}
                 renderCustomNodeElement={renderRectSvgNode}
               />
-              <div>
-                {/* Conditionally render the monsterNFT image */}
+              <div className="monster-container">
                 {areAllSkillsLearned(createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })) ? (
-                  <div>
-                    <p className='ini-egg-text'>Congratulation, You Got It!!!</p>
+                  <div className="monster-content">
+                    <p className='ini-egg-text'>Congratulations, You Got It!!!</p>
                     <img src={monsterNFT} alt="Monster NFT" className="monster-image" />
                     {/* Todo: connect NTF to wallet (collectNTF)*/}
                     {/* <BigButton> Collect NTF </BigButton> */}
                   </div>
                 ) : (
-                  <div>
+                  <div className="monster-content">
                     <p className='ini-egg-text'>This is Your Initial Egg!!</p>
                     <img src={iniEgg} alt="Initial Egg" className="ini-egg-image" />
                   </div>
@@ -224,7 +223,6 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
       </section>
     </div>
   );
-  
 };
 
 Output.propTypes = {

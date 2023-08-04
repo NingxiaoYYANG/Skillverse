@@ -1,47 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Raleway:ital,wght@0,300;1,300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Raleway:ital,wght@1,300&display=swap');
+/* Imports */
+@import url('https://fonts.googleapis.com/css2?family=Blender+Pro+Book&display=swap');
 
+/* Input.css */
+.Input_Section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+}
 
-.Interest_question,
-.career_question {
+.Interest_question {
+    padding-bottom: 50px;
+}
+
+.input-heading {
+  font-family: 'Blender Pro Book', sans-serif;
+  font-size: 36px;
+  color: #97E3FE;
+  margin-bottom: 20px;
+}
+
+.input-select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #818DE0;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #97E3FE;
+  font-family: 'Blender Pro Book', sans-serif;
+  font-size: 36px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input-select:focus {
+  outline: none;
+  border-color: #9A53D0;
+}
+
+.input-select option {
+  background-color: #0F1046;
+  color: #97E3FE;
+  font-family: 'Blender Pro Book', sans-serif;
+  font-size: 20px; /* Increase font size */
+  padding: 10px 15px; /* Add padding */
+}
+
+/* BigButton Overrides */
+.btn {
     align-items: center;
     justify-content: center;
+    background-color: #97E3FE;
+    font-family: 'Blender Pro Book', sans-serif;
+}
+
+.btn:hover {
+    background-color: #818DE0;
+    color: #fff;
+}
+
+/* Confirm Button */
+.button {
     display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    margin-bottom: 2rem;
+    justify-content: center;
+    margin-top: 20px; /* Add margin */
 }
-
-select {
-    font-size: 20px;  
-    width: 400px;      
-    height: 50px;     
-    padding: 10px;
-    border-radius: 4px; 
-    border: 1px solid #6568F4;
-    background: white;
-    appearance: none; /* Removes default chrome and safari style */
-    -webkit-appearance: none; /* Removes default chrome and safari style */
-    -moz-appearance: none; /* Removes default Firefox style */
+#confirm {
+    background-color: #9A53D0;
 }
-
-/* Add custom arrow for select */
-select::-ms-expand {
-    display: none; /* for IE 11 */
-}
-
-select::after {
-    content: '▾';
-    position: absolute;
-    transform: translateY(-50%);
-    right: 10px;
-    top: 50%;
-    pointer-events: none;
-}
-
-/* Add focus effect */
-select:focus {
-    outline: none;
-    border-color: #6568F4;
-    box-shadow: 0 0 0 2px rgba(101, 104, 244, 0.25);
+#confirm:hover {
+    background-color: #2843AD;
+    color: #fff;
 }

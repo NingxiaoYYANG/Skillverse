@@ -1,10 +1,10 @@
 .btn {
-    background-color: rgb(245, 215, 118);
+    background-color: #9A53D0; /* Use the specified color from your color palette */
+    font-family: 'BlenderProBook', sans-serif;
 }
 
-Button:hover {
+.btn:hover {
+    background-color: #818DE0; /* Change the color on hover */
     transition: all 0.3s ease-out;
-    background-color: #fff;
-    color: #6568F4;
-    transition: 250ms;
+    color: #fff;
 }

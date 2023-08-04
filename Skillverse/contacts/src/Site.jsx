@@ -1,42 +1,32 @@
-// React content
 import React from "react";
 import {
-    Routes,
-    Route,
-    useNavigate,
-  } from 'react-router-dom';
+  Routes,
+  Route,
+  useNavigate,
+  Link
+} from 'react-router-dom';
 
-
-// Web3 content
 import Web3 from "web3";
 import { abi, address } from "./config.js";
-
-// Components
+import './Site.css';
 import Welcome from "./components/Welcome";
 import BigButton from "./components/BigButton";
-
-// Pages
 import Output from './pages/Output.jsx';
 import Input from './pages/Input.jsx';
-
-
 
 function Site() {
   const [userWalletAddress, setUserWalletAddress] = React.useState(null);
   const [web3, setWeb3] = React.useState(null);
-  const [balance, setBalance] = React.useState(null);
   const [contract, setContract] = React.useState(null);
   const [userInput, setUserInput] = React.useState(null);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    // 初始化UserInput
     const hasInput = localStorage.getItem('userInput');
 
     if (hasInput) {
       setUserInput(hasInput);
     }
-
 
     async function load() {
       if (window.ethereum) {
@@ -95,37 +85,38 @@ function Site() {
     document.title = "Web3 Dashboard";
   };
 
-
   const monsterInputBtn = () => {
     navigate('/monster-input');
   }
-  
 
+  const goBack = () => {
+    navigate(-1);
+  }
+  
   return (
-    <div>
-        <nav className="navbar">
-            {userWalletAddress ? (
-            <>
-                <h1 className="admin_title">Web3 Dashboard</h1>
-                <p className="admin_info">
-                Current wallet address: <span>{userWalletAddress}</span>
-                </p>
-                <BigButton onClick={logout}>Logout</BigButton>
-            </>
-            ) : (
-            <>
-                <h1 className="admin_title">Web3 Login</h1>
-                <p className="admin_info">Please install MetaMask</p>
-                <p className="admin_info">or any Ethereum Extension Wallet</p>
-                <BigButton onClick={loginWithEth}>Login with Ethereum</BigButton>
-            </>
-            )}
-        </nav>
-        <Routes>
-            <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} userConnected={userWalletAddress}/>} />
-            <Route path='/monster-output' element={<Output userInput={userInput} userWalletAddress={userWalletAddress}/>} />
-            <Route path='/monster-input' element={<Input setUserInputFn={setUserInput}/>} />
-        </Routes>
+    <div className="site-container">
+      <nav className="navbar">
+        <div className="navbar-content">
+          <h1 className="admin_title">Skillverse</h1>
+          {window.location.pathname !== "/" && (
+            <button className="back-btn" onClick={goBack}>Back</button>
+          )}
+          {userWalletAddress ? (
+            <div className="user-info">
+              <span>Logged in as:</span>
+              <span className="user-address">{userWalletAddress}</span>
+              <button className="logout-btn" onClick={logout}>Logout</button>
+            </div>
+          ) : (
+            <button className="login-btn" onClick={loginWithEth}>Login with Ethereum</button>
+          )}
+        </div>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} userConnected={userWalletAddress} />} />
+        <Route path='/monster-output' element={<Output userInput={userInput} userWalletAddress={userWalletAddress} />} />
+        <Route path='/monster-input' element={<Input setUserInputFn={setUserInput} />} />
+      </Routes>
     </div>
   );
 }
