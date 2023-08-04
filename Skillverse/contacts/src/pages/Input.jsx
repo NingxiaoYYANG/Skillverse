@@ -27,82 +27,82 @@ const Input = (props) => {
     };
     
     const InterestOptions = [
-        {value: 'art', label: 'Art'},
-        {value: 'iT', label: 'IT'},
-        {value: 'engineering', label: 'Engineering'},
-        {value: 'science', label: 'Science '},
-        {value: 'design', label: 'Design '},
-    ];
-    
-
-    const ArtPositions = [
-        {value: 'Fine Artist', label: 'Fine Artist'},
-        {value: 'Art Illustrator', label: 'Art Illustrator'},
-        {value: 'Graphic Designer', label: 'Graphic Designer'},
-    ];
-
-    const ITPositions = [
-        {value: 'Software Development', label: 'Software Development'},
-        {value: 'Web Development', label: 'Web Development'},
-        {value: 'Systems Administration', label: 'Systems Administration'},
-        {value: 'Network Engineering', label: 'Network Engineering'},
-        {value: 'Cybersecurity', label: 'Cybersecurity'},
-        {value: 'Data Science and Analytics', label: 'Data Science and Analytics'},
-        {value: 'Cloud Computing', label: 'Cloud Computing'},
-        {value: 'IT Consulting', label: 'IT Consulting'},
-    ];
-
-    const EngineeringPositions = [
-        {value: 'Civil Engineering', label: 'Civil'},
-        {value: 'Mechanical Engineering', label: 'Mechanical'},
-        {value: 'Electrical Engineering', label: 'Electrical'},
-        {value: 'Aerospace Engineering', label: 'Aerospace'},
-        {value: 'Computer Engineering', label: 'Computer'},    
-        {value: 'Chemical Engineering', label: 'Chemical'},    
-        {value: 'Environmental Engineering', label: 'Environmental'},    
-        {value: 'Biomedical Engineering', label: 'Biomedical'},    
-        {value: 'Industrial Engineering', label: 'Industrial'},    
-        {value: 'Software Engineering', label: 'Software'},    
-        {value: 'Materials Engineering', label: 'Materials'}, 
-        {value: 'Petroleum Engineering', label: 'Petroleum'},
-        {value: 'Nuclear Engineering', label: 'Nuclear'},
-        {value: 'Renewable Energy Engineering', label: 'Renewable Energy'},
-    ];
-
-    const SciencePositions = [
-        {value: 'Research Scientist', label: 'Research'},
-        {value: 'Medical Scientist', label: 'Medical'},
-        {value: 'Biotechnologist', label: 'Biotechnologist'},
-        {value: 'Pharmacist', label: 'Pharmacist'},
-        {value: 'Environmental Scientist', label: 'Environmental'},
-        {value: 'Geoscientist', label: 'Geoscientist'},
-        {value: 'Astrophysicist/Astronomer', label: 'Astrophysicist'},
-        {value: 'Neuroscientist', label: 'Neuroscientist'},
-        {value: 'Forensic Scientist', label: 'Forensic'},
-        {value: 'Science Educator', label: 'Educator'},
-        {value: 'Science Communicator', label: 'Communicator'},
-        {value: 'Science Policy Analyst', label: 'Analyst'},
-        {value: 'Food Scientist', label: 'Food'},
-        {value: 'Zoologist/Botanist', label: 'Zoologist'},
-        {value: 'Biomedical Researcher', label: 'Biomedical'},
-        {value: 'Materials Scientist', label: 'Materials'},
-        {value: 'Science Illustrator', label: 'Illustrator'},
-    ];
-
-    const DesignPositions = [
-        {value: 'Graphic Design', label: 'Graphic'},
-        {value: 'Web Design and Development', label: 'WebDesign'},
-        {value: 'UX/UI Design', label: 'UX/UI'},
-        {value: 'Industrial Design', label: 'Industrial'},
-        {value: 'Interior Design', label: 'Interior'},
-        {value: 'Fashion Design', label: 'Fashion'},
-        {value: 'Animation and Motion Graphics', label: 'Animation'},
-        {value: 'Architectural Design', label: 'Architectural'},
-        {value: 'Game Design', label: 'GameDesign'},
-        {value: 'Multimedia Design', label: 'Multimedia'},
-        {value: 'User Experience Research', label: 'User Experience'},
-        {value: 'Advertising and Branding Design', label: 'Advertising'},
-    ];
+      { value: 'art', label: 'ART' },
+      { value: 'iT', label: 'IT' },
+      { value: 'engineering', label: 'ENGINEERING' },
+      { value: 'science', label: 'SCIENCE' },
+      { value: 'design', label: 'DESIGN' },
+  ];
+  
+  const ArtPositions = [
+      { value: 'Fine Artist', label: 'FINE ARTIST' },
+      { value: 'Art Illustrator', label: 'ART ILLUSTRATOR' },
+      { value: 'Graphic Designer', label: 'GRAPHIC DESIGNER' },
+  ];
+  
+  const ITPositions = [
+      { value: 'Software Development', label: 'SOFTWARE DEVELOPMENT' },
+      { value: 'Web Development', label: 'WEB DEVELOPMENT' },
+      { value: 'Systems Administration', label: 'SYSTEMS ADMINISTRATION' },
+      { value: 'Network Engineering', label: 'NETWORK ENGINEERING' },
+      { value: 'Cybersecurity', label: 'CYBERSECURITY' },
+      { value: 'Data Science and Analytics', label: 'DATA SCIENCE AND ANALYTICS' },
+      { value: 'Cloud Computing', label: 'CLOUD COMPUTING' },
+      { value: 'IT Consulting', label: 'IT CONSULTING' },
+  ];
+  
+  const EngineeringPositions = [
+      { value: 'Civil Engineering', label: 'CIVIL' },
+      { value: 'Mechanical Engineering', label: 'MECHANICAL' },
+      { value: 'Electrical Engineering', label: 'ELECTRICAL' },
+      { value: 'Aerospace Engineering', label: 'AEROSPACE' },
+      { value: 'Computer Engineering', label: 'COMPUTER' },
+      { value: 'Chemical Engineering', label: 'CHEMICAL' },
+      { value: 'Environmental Engineering', label: 'ENVIRONMENTAL' },
+      { value: 'Biomedical Engineering', label: 'BIOMEDICAL' },
+      { value: 'Industrial Engineering', label: 'INDUSTRIAL' },
+      { value: 'Software Engineering', label: 'SOFTWARE' },
+      { value: 'Materials Engineering', label: 'MATERIALS' },
+      { value: 'Petroleum Engineering', label: 'PETROLEUM' },
+      { value: 'Nuclear Engineering', label: 'NUCLEAR' },
+      { value: 'Renewable Energy Engineering', label: 'RENEWABLE ENERGY' },
+  ];
+  
+  const SciencePositions = [
+      { value: 'Research Scientist', label: 'RESEARCH' },
+      { value: 'Medical Scientist', label: 'MEDICAL' },
+      { value: 'Biotechnologist', label: 'BIOTECHNOLOGIST' },
+      { value: 'Pharmacist', label: 'PHARMACIST' },
+      { value: 'Environmental Scientist', label: 'ENVIRONMENTAL' },
+      { value: 'Geoscientist', label: 'GEOSCIENTIST' },
+      { value: 'Astrophysicist/Astronomer', label: 'ASTROPHYSICIST' },
+      { value: 'Neuroscientist', label: 'NEUROSCIENTIST' },
+      { value: 'Forensic Scientist', label: 'FORENSIC' },
+      { value: 'Science Educator', label: 'EDUCATOR' },
+      { value: 'Science Communicator', label: 'COMMUNICATOR' },
+      { value: 'Science Policy Analyst', label: 'ANALYST' },
+      { value: 'Food Scientist', label: 'FOOD' },
+      { value: 'Zoologist/Botanist', label: 'ZOOLOGIST' },
+      { value: 'Biomedical Researcher', label: 'BIOMEDICAL' },
+      { value: 'Materials Scientist', label: 'MATERIALS' },
+      { value: 'Science Illustrator', label: 'ILLUSTRATOR' },
+  ];
+  
+  const DesignPositions = [
+      { value: 'Graphic Design', label: 'GRAPHIC' },
+      { value: 'Web Design and Development', label: 'WEB DESIGN' },
+      { value: 'UX/UI Design', label: 'UX/UI' },
+      { value: 'Industrial Design', label: 'INDUSTRIAL' },
+      { value: 'Interior Design', label: 'INTERIOR' },
+      { value: 'Fashion Design', label: 'FASHION' },
+      { value: 'Animation and Motion Graphics', label: 'ANIMATION' },
+      { value: 'Architectural Design', label: 'ARCHITECTURAL' },
+      { value: 'Game Design', label: 'GAME DESIGN' },
+      { value: 'Multimedia Design', label: 'MULTIMEDIA' },
+      { value: 'User Experience Research', label: 'USER EXPERIENCE' },
+      { value: 'Advertising and Branding Design', label: 'ADVERTISING' },
+  ];
+  
     
     let positions = []
     if (areaOfInterest === 'art') {
@@ -120,10 +120,10 @@ const Input = (props) => {
     return (
         <div className="Input_Section">
           <div className="Interest_question">
-            <h1 className="input-heading">What is your area of interest?</h1>
+            <h1 className="input-heading">WHAT IS YOUR AREA OF INTEREST?</h1>
             <div className="select-wrapper">
               <select value={areaOfInterest} onChange={handleInterestChange} className="input-select">
-                <option value="">Select an interest</option>
+                <option value="">SELECT AN INTEREST</option>
                 {InterestOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -135,10 +135,10 @@ const Input = (props) => {
       
           {areaOfInterest && positions && (
             <div className="career_question">
-              <h1 className="input-heading">What is your career goal?</h1>
+              <h1 className="input-heading">WHAT IS YOUR CAREER GOAL?</h1>
               <div className="select-wrapper">
                 <select value={position} onChange={handlePositionChange} className="input-select">
-                  <option value="">Select a position</option>
+                  <option value="">SELECT A POSITION</option>
                   {positions.map((position) => (
                     <option key={position.value} value={position.value}>
                       {position.label}
@@ -146,7 +146,7 @@ const Input = (props) => {
                   ))}
                 </select>
                 <div className='button'>
-                  <BigButton id='confirm' onClick={navigateToOutput}> Confirm </BigButton>
+                  <BigButton id='confirm' onClick={navigateToOutput}> CONFIRM </BigButton>
                 </div>
               </div>
             </div>

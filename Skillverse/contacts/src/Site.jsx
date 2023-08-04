@@ -11,6 +11,8 @@ import { abi, address } from "./config.js";
 import './Site.css';
 import Welcome from "./components/Welcome";
 import BigButton from "./components/BigButton";
+import logo from "./Background/Skillverse.png";
+import profile from "./Background/profile.png";
 import Output from './pages/Output.jsx';
 import Input from './pages/Input.jsx';
 
@@ -88,27 +90,26 @@ function Site() {
   const monsterInputBtn = () => {
     navigate('/monster-input');
   }
-
-  const goBack = () => {
-    navigate(-1);
-  }
   
   return (
     <div className="site-container">
       <nav className="navbar">
         <div className="navbar-content">
-          <h1 className="admin_title">Skillverse</h1>
-          {window.location.pathname !== "/" && (
-            <button className="back-btn" onClick={goBack}>Back</button>
-          )}
+          <Link to="/" className="logo">
+            <img src={logo} alt="Skillverse Logo" className="logo" />
+          </Link>
+          <div className="nav-links">
+            <Link to="/about" className="about">ABOUT US</Link>
+            <Link to="/features" className="features">FEATURES</Link>
+            <Link to="/premium" className="premium">PREMIUM</Link>
+          </div>
           {userWalletAddress ? (
             <div className="user-info">
-              <span>Logged in as:</span>
-              <span className="user-address">{userWalletAddress}</span>
-              <button className="logout-btn" onClick={logout}>Logout</button>
+              <img src={profile} alt="Profile" className="profile" />
+              <BigButton className="logout-btn" onClick={logout}>DISCONNECT</BigButton>
             </div>
           ) : (
-            <button className="login-btn" onClick={loginWithEth}>Login with Ethereum</button>
+            <BigButton className="login-btn" onClick={loginWithEth}>CONNECT A WALLET</BigButton>
           )}
         </div>
       </nav>

@@ -15,9 +15,7 @@
 }
 
 .input-heading {
-  font-family: 'Blender Pro Book', sans-serif;
-  font-size: 36px;
-  color: #97E3FE;
+  font-size: 48px;
   margin-bottom: 20px;
 }
 
@@ -27,9 +25,7 @@
   border: 2px solid #818DE0;
   border-radius: 5px;
   background-color: transparent;
-  color: #97E3FE;
-  font-family: 'Blender Pro Book', sans-serif;
-  font-size: 36px;
+  font-size: 30px;
   margin-bottom: 30px;
   cursor: pointer;
   transition: border-color 0.3s ease-in-out;
@@ -40,37 +36,9 @@
   border-color: #9A53D0;
 }
 
-.input-select option {
-  background-color: #0F1046;
-  color: #97E3FE;
-  font-family: 'Blender Pro Book', sans-serif;
-  font-size: 20px; /* Increase font size */
-  padding: 10px 15px; /* Add padding */
-}
-
-/* BigButton Overrides */
-.btn {
-    align-items: center;
-    justify-content: center;
-    background-color: #97E3FE;
-    font-family: 'Blender Pro Book', sans-serif;
-}
-
-.btn:hover {
-    background-color: #818DE0;
-    color: #fff;
-}
-
 /* Confirm Button */
 .button {
     display: flex;
     justify-content: center;
     margin-top: 20px; /* Add margin */
-}
-#confirm {
-    background-color: #9A53D0;
-}
-#confirm:hover {
-    background-color: #2843AD;
-    color: #fff;
 }

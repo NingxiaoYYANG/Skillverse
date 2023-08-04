@@ -7,10 +7,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'BlenderProBook', sans-serif; /* 使用指定的字体 */
+  font-family: 'BlenderProBook', sans-serif;
 }
 
 body {
-  background-color: #0F1046; /* 背景色 */
-  color: #97E3FE; /* 字体颜色 */
+  color: #fff; /* 字体颜色 */
 }

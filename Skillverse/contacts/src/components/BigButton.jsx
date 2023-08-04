@@ -1,34 +1,23 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import Button from '@mui/material/Button';
-import './BigButton.css'; // Import the custom CSS file
+import PropTypes from 'prop-types';
+import './BigButton.css';
 
-const BigButton = (props) => {
+const Button = ({ onClick, disabled, children }) => {
   return (
-    <Button
-      sx={{ 
-        fontsize: '20pt',
-        borderRadius: '5px',
-        border: 'none',
-        padding: '20px 42px',
-        textTransform: 'uppercase',
-        cursor: 'pointer',
-        color: '#fff',
-      }}
-      variant="contained"
-      onClick={props.onClick}
-      disabled={props.disabled}
-      className={'btn'}
+    <button
+      className="custom-button"
+      onClick={onClick}
+      disabled={disabled}
     >
-      {props.children}
-    </Button>
+      {children}
+    </button>
   );
 };
 
-BigButton.propTypes = {
+Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
-  children: PropTypes.string,
+  children: PropTypes.node,
 };
 
-export default BigButton;
+export default Button;
