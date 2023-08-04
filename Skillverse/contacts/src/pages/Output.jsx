@@ -4,7 +4,7 @@ import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
 import learnIcon from '../Monster/red_icon.png';
 import iniEgg from '../Monster/egg.png';
-import monsterNFT from '../Monster/black_monster.png';
+import monsterNFT from '../Monster/AIGC-image-SkillVerse/robotic_white.png';
 import BigButton from '../components/BigButton';
 import Tree from 'react-d3-tree';
 import { Spin } from 'antd';
@@ -18,10 +18,11 @@ const Output = (props) => {
   const [loading, setLoading] = useState(true);
   const [skillArrays, setSkillArrays] = useState([]);
   const [learnedSkills, setLearnedSkills] = useState({});
+  const [isCollected, setIsCollected] = useState(false);
 
   // For connecting to NFT solidity contract
-  const contractAddress = '0xe86c42fc5d2e27c1d4536d3ac0c79aa872f5ef16'; // Replace with the actual contract address
-  const ownerAddress = '0xCa1Bdb955d9fFB14580e35b991a29a6Dd295304C';
+  const contractAddress = '0x31e6c3b577a73afb176d925c7a6319c40128fc27'; // Replace with the actual contract address
+
   // Initialize the contract instance
   // Provider for sending transactions (using MetaMask)
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -190,23 +191,18 @@ const options = {
     </g>
   );
 
+  // for collecting NFT to user's wallet
   const collectNft = async () => {
     try {
-      // Pinata NFT Minting, test NFT. 
-      // This is just one NFT for demo purpose. This will be replaced with our NFT database in the future.
-      const nftURL =  'https://gateway.pinata.cloud/ipfs/QmXQvHnWnkM8NcqifLMoiBxGoE24nbaxf2SBKA7PovYSdb/1.json';
-
-      // // Mint the NFT using the signer (MetaMask wallet)
-      // const transaction = await contract.mint(nftURL);
-
       // Transfer the NFT from contract to user's wallet using the signer (MetaMask wallet)
-      const transaction = await contract.transferFrom(ownerAddress, props.userWalletAddress, 1);
+      // Only for demo, This will definetly get the robotic_white NFT by passing token ID 5
+      const transaction = await contract.transferFrom(contractAddress, props.userWalletAddress, 5);
+
+      // Set the isCollected to be true to hide the collect button
+      setIsCollected(true);
 
       // Wait for the transaction to be mined and get the receipt
       await transaction.wait();
-
-      // Optional: Show a success message or update the UI.
-      console.log(transaction)
 
     } catch (error) {
       console.error('Error calling safeTransferFrom():', error);
@@ -242,8 +238,11 @@ const options = {
               <Tree 
                 data={createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })}
                 orientation="vertical"
-                translate={{ x: 750, y: 200 }}
+                translate={{ x: 550, y: 200 }}
                 renderCustomNodeElement={renderRectSvgNode}
+                // draggable={false}
+                // zoomable={false}
+                separation={{ siblings: 2, nonSiblings: 2 }}
               />
               <div className='study_rogress'>
                 {/* Conditionally render the monsterNFT image */}
@@ -252,7 +251,14 @@ const options = {
                     <p className='ini-egg-text'>Congratulation, You Got It!!!</p>
                     <img src={monsterNFT} alt="Monster NFT" className="monster-image" />
                     {/* Todo: connect NTF to wallet (collectNTF)*/}
-                    <BigButton onClick={collectNft}> Collect NTF </BigButton>
+                    {isCollected ? 
+                    (
+                      <p className='ini-egg-text'> You have already collect it</p>
+                    ) : (
+                      <BigButton onClick={collectNft}> Collect NTF </BigButton>
+                    )}
+
+                    
                   </div>
                 ) : (
                   <div>
