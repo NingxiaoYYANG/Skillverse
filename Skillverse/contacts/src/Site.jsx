@@ -9,6 +9,7 @@ import {
 import Web3 from "web3";
 
 // Components
+import './Site.css';
 import Welcome from "./components/Welcome";
 import BigButton from "./components/BigButton";
 import logo from "./Background/Skillverse.png";
