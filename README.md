@@ -1,7 +1,6 @@
 # Hackthon2023
 Web3 Application repo
 
-
 # Skillverse
 The mission of Skillverse is to break down the barriers of centralized educational institutions and eliminate the monopoly of education certification by such institutions. It aims to provide equal access to high-quality educational resources and more scientifically recognized professional certifications for everyone.
 

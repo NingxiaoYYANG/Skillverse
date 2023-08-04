@@ -4,25 +4,41 @@ import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
 import learnIcon from '../Monster/red_icon.png';
 import iniEgg from '../Monster/egg.png';
-import monsterNFT from '../Monster/black_monster.png';
+import monsterNFT from '../Monster/AIGC-image-SkillVerse/robotic_white.png';
 import BigButton from '../components/BigButton';
 import Tree from 'react-d3-tree';
 import { Spin } from 'antd';
+
+// web3 related
+import { ethers } from 'ethers';
+import AIGC_NFT_ABI from '../contractABI/AIGC_NFT_ABI.json';
 
 const Output = (props) => {
   const [prevSkill, setPrevSkill] = useState([]);
   const [loading, setLoading] = useState(true);
   const [skillArrays, setSkillArrays] = useState([]);
   const [learnedSkills, setLearnedSkills] = useState({});
+  const [isCollected, setIsCollected] = useState(false);
 
+  // For connecting to NFT solidity contract
+  const contractAddress = '0x31e6c3b577a73afb176d925c7a6319c40128fc27'; // Replace with the actual contract address
+
+  // Initialize the contract instance
+  // Provider for sending transactions (using MetaMask)
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  
+  // Initialize the contract instance using the ABI and the provider
+  const contract = new ethers.Contract(contractAddress, AIGC_NFT_ABI, provider.getSigner());
+
+  // For getting response from AI
   const getSkillInfos = async () => {
     const filtered_Input = `what skills do I need to learn if I want to become a ${props.userInput}? Answer in tree data structure format without any extra words, if learning skill1 depending on skill2 then skill 2 should be parent node of skill 1.\n
   Answer in the following format with no empty string:\n\
 Skill, SkillID, Parent, ParentID, isLearned|\n\
 Here is an example to follow:\n\
 HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM Manipulation, 4, JavaScript, 3, false|CSS Frameworks, 5, CSS, 2, false|Bootstrap, 6, CSS Frameworks, 5, false|JavaScript Libraries, 7, JavaScript, 3, false|jQuery, 8, JavaScript Libraries, 7, false|React, 9, JavaScript Libraries, 7, false|Redux, 10, React, 9, false|Angular, 11, JavaScript Libraries, 7, false`;
-
-  const options = {
+  
+const options = {
     method: 'POST',
     headers: {
       "Content-type": 'application/json',
@@ -61,6 +77,7 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
   }
 };
 
+  // For generating the tree diagram
   const findChildrenSkills = (parentId) => {
     // Recursively find children skills of the given parent ID
     return skillArrays.filter((skill) => skill.ParentID === parentId);
@@ -83,18 +100,6 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
       return node.children.every(areAllSkillsLearned);
     }
   };
-  
-  useEffect(() => {
-    getSkillInfos();
-  }, []);
-
-  useEffect(() => {
-    if (props.userInput && skillArrays.length > 0) {
-      const tree = createSkillTree('0');
-      setPrevSkill(tree);
-      setLoading(false);
-    }
-  }, [props.userInput, skillArrays]);
 
   const createReactD3TreeData = (node) => {
     return {
@@ -186,6 +191,40 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
     </g>
   );
 
+  // for collecting NFT to user's wallet
+  const collectNft = async () => {
+    try {
+      // Transfer the NFT from contract to user's wallet using the signer (MetaMask wallet)
+      // Only for demo, This will definetly get the robotic_white NFT by passing token ID 5
+      const transaction = await contract.transferFrom(contractAddress, props.userWalletAddress, 5);
+
+      // Set the isCollected to be true to hide the collect button
+      setIsCollected(true);
+
+      // Wait for the transaction to be mined and get the receipt
+      await transaction.wait();
+
+    } catch (error) {
+      console.error('Error calling safeTransferFrom():', error);
+    }
+  };
+  
+
+  // For Initialisation
+
+  useEffect(() => {
+    getSkillInfos();
+  }, []);
+
+  useEffect(() => {
+    if (props.userInput && skillArrays.length > 0) {
+      const tree = createSkillTree('0');
+      setPrevSkill(tree);
+      setLoading(false);
+    }
+  }, [props.userInput, skillArrays]);
+
+
   return (
     <div className="app">
       <section className="output-container">
@@ -199,20 +238,31 @@ HTML, 1, None, 0, false|CSS, 2, None, 0, false|JavaScript, 3, None, 0, false|DOM
               <Tree 
                 data={createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })}
                 orientation="vertical"
-                translate={{ x: 750, y: 200 }}
+                translate={{ x: 550, y: 200 }}
                 renderCustomNodeElement={renderRectSvgNode}
+                // draggable={false}
+                zoomable={false}
+                separation={{ siblings: 2, nonSiblings: 2 }}
               />
-              <div className="monster-container">
+              <div className='study_rogress'>
                 {areAllSkillsLearned(createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })) ? (
                   <div className="monster-content">
                     <p className='ini-egg-text'>Congratulations, You Got It!!!</p>
                     <img src={monsterNFT} alt="Monster NFT" className="monster-image" />
                     {/* Todo: connect NTF to wallet (collectNTF)*/}
-                    {/* <BigButton> Collect NTF </BigButton> */}
+                    {isCollected ? 
+                    (
+                      <p className='ini-egg-text'> You have already collect it</p>
+                    ) : (
+                      <BigButton onClick={collectNft}> Collect NTF </BigButton>
+                    )}
+
+                    
                   </div>
                 ) : (
                   <div className="monster-content">
                     <p className='ini-egg-text'>This is Your Initial Egg!!</p>
+                    <br/>
                     <img src={iniEgg} alt="Initial Egg" className="ini-egg-image" />
                   </div>
                 )}

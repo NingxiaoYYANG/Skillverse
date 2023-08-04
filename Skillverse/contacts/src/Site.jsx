@@ -7,8 +7,8 @@ import {
 } from 'react-router-dom';
 
 import Web3 from "web3";
-import { abi, address } from "./config.js";
-import './Site.css';
+
+// Components
 import Welcome from "./components/Welcome";
 import BigButton from "./components/BigButton";
 import logo from "./Background/Skillverse.png";
@@ -19,7 +19,6 @@ import Input from './pages/Input.jsx';
 function Site() {
   const [userWalletAddress, setUserWalletAddress] = React.useState(null);
   const [web3, setWeb3] = React.useState(null);
-  const [contract, setContract] = React.useState(null);
   const [userInput, setUserInput] = React.useState(null);
   const navigate = useNavigate();
 
@@ -44,13 +43,6 @@ function Site() {
 
     load();
   }, []);
-
-  React.useEffect(() => {
-    if (web3) {
-      const contractInstance = new web3.eth.Contract(abi, address);
-      setContract(contractInstance);
-    }
-  }, [web3]);
 
   const loginWithEth = async () => {
     try {
