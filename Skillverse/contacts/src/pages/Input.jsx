@@ -10,8 +10,13 @@ const Input = (props) => {
     const navigate = useNavigate();
 
     const navigateToOutput = () => {
+      if (position.length != 0) {
         navigate(`/monster-output`);
+      } else {
+        alert("Please select a valid position")
     };
+      }
+      
 
     // handle change when user selects an option for area of interest
     const handleInterestChange = (event) => {
