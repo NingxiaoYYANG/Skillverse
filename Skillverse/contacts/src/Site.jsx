@@ -9,12 +9,14 @@ import {
 import Web3 from "web3";
 
 // Components
-import Welcome from "./components/Welcome";
-import BigButton from "./components/BigButton";
-import logo from "./Background/Skillverse.png";
-import profile from "./Background/profile.png";
+import Welcome from './components/Welcome';
+import BigButton from './components/BigButton';
+import logo from './Background/Skillverse.png';
+import profile from './Background/profile.png';
 import Output from './pages/Output.jsx';
 import Input from './pages/Input.jsx';
+
+import './Site.css'
 
 function Site() {
   const [userWalletAddress, setUserWalletAddress] = React.useState(null);
