@@ -241,7 +241,7 @@ const options = {
                 translate={{ x: 550, y: 200 }}
                 renderCustomNodeElement={renderRectSvgNode}
                 // draggable={false}
-                // zoomable={false}
+                zoomable={false}
                 separation={{ siblings: 2, nonSiblings: 2 }}
               />
               <div className='study_rogress'>
