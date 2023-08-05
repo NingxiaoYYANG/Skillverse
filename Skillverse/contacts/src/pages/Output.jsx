@@ -146,6 +146,20 @@ const options = {
       alert("Incorrect answer. Please try again.");
     }
   };
+
+  // A Cheating function that learns all skills
+  const completeAllQuiz = () => {
+    // Create a copy of the learnedSkills object
+    const updatedLearnedSkills = { ...learnedSkills };
+  
+    // Mark all skills as learned
+    skillArrays.forEach(skill => {
+      updatedLearnedSkills[skill.SkillID] = true;
+    });
+  
+    // Update the learnedSkills state
+    setLearnedSkills(updatedLearnedSkills);
+  };
   
   const SkillNode = ({ nodeDatum }) => {
     // Check if the skill is learned
@@ -230,7 +244,9 @@ const options = {
       <section className="output-container">
         {loading ? (
           <div className="loading">
+            <br/>
             <img src={Loading} alt="Loading" />
+            <p className='loading-text'> GENERATING SKILL BOARD... </p>
           </div>
         ) : (
           <div>
@@ -254,18 +270,22 @@ const options = {
                         (
                           <p className='ini-egg-text'> You have already collect it</p>
                         ) : (
-                          <BigButton onClick={collectNft}> Collect NTF </BigButton>
+                          <BigButton onClick={collectNft}> COLLECT NTF </BigButton>
                         )}
                       </div>
                     ) : (
                       <div>
-                        <p className='ini-egg-text'>This is Your Initial Egg!!</p>
+                        <p className='ini-egg-text'>STUDY PROGRESS</p>
                         <br/>
                         <img src={iniEgg} alt="Initial Egg" className="ini-egg-image" />
+                        <p className='ini-egg-text'>LIGHT UP ALL SKILLS TO UNLOCK YOUR MONSTER</p>
                       </div>
                     )}
                   </div>
                 )}
+              </div>
+              <div className='complete'>
+                <BigButton onClick={completeAllQuiz}> Complete All Quiz</BigButton>
               </div>
             </div>
             <img
