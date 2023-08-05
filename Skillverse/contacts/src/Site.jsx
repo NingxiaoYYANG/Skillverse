@@ -9,10 +9,10 @@ import {
 import Web3 from "web3";
 
 // Components
-import Welcome from './components/Welcome';
-import BigButton from './components/BigButton';
-import logo from './Background/Skillverse.png';
-import profile from './Background/profile.png';
+import Welcome from "./components/Welcome";
+import BigButton from "./components/BigButton";
+import logo from "./Background/Skillverse.png";
+import profile from "./Background/profile.png";
 import Output from './pages/Output.jsx';
 import Input from './pages/Input.jsx';
 
@@ -97,14 +97,16 @@ function Site() {
             <Link to="/features" className="features">FEATURES</Link>
             <Link to="/premium" className="premium">PREMIUM</Link>
           </div>
-          {userWalletAddress ? (
-            <div className="user-info">
-              <img src={profile} alt="Profile" className="profile" />
-              <BigButton className="logout-btn" onClick={logout}>DISCONNECT</BigButton>
-            </div>
-          ) : (
-            <BigButton className="login-btn" onClick={loginWithEth}>CONNECT A WALLET</BigButton>
-          )}
+          <div className="user-section">
+            {userWalletAddress ? (
+              <div className="user-info">
+                <img src={profile} alt="Profile" className="profile" />
+                <BigButton className="logout-btn" onClick={logout}>DISCONNECT</BigButton>
+              </div>
+            ) : (
+              <BigButton className="login-btn" onClick={loginWithEth}>CONNECT A WALLET</BigButton>
+            )}
+          </div>
         </div>
       </nav>
       <Routes>

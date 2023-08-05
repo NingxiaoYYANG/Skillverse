@@ -4,10 +4,11 @@ import '../pages/Output.css';
 import skillIcon from '../Monster/purple_icon.png';
 import learnIcon from '../Monster/red_icon.png';
 import iniEgg from '../Monster/egg.png';
+import Open from '../Background/Open.png';  
+import Loading from '../Background/loading.gif';
 import monsterNFT from '../Monster/AIGC-image-SkillVerse/robotic_white.png';
 import BigButton from '../components/BigButton';
 import Tree from 'react-d3-tree';
-import { Spin } from 'antd';
 
 // web3 related
 import { ethers } from 'ethers';
@@ -19,6 +20,7 @@ const Output = (props) => {
   const [skillArrays, setSkillArrays] = useState([]);
   const [learnedSkills, setLearnedSkills] = useState({});
   const [isCollected, setIsCollected] = useState(false);
+  const [isStudyProgressOpen, setIsStudyProgressOpen] = useState(false);
 
   // For connecting to NFT solidity contract
   const contractAddress = '0x31e6c3b577a73afb176d925c7a6319c40128fc27'; // Replace with the actual contract address
@@ -108,6 +110,10 @@ const options = {
       children: node.children.map(createReactD3TreeData),
     };
   };
+
+  const toggleStudyProgress = () => {
+    setIsStudyProgressOpen(!isStudyProgressOpen);
+  };
   
   const clickSkillNode = (nodeDatum) => {
     if (nodeDatum.id === 0) {
@@ -151,14 +157,11 @@ const options = {
       const iconImage = areAllSkillsLearned(nodeDatum) ? learnIcon : skillIcon;
 
       return (
-        <g transform={`translate(-15,-25)`}>
+        <g transform={`translate(-30,-25)`}>
           <image
             xlinkHref={iconImage}
             alt="Skill Icon"
             className="icon"
-            width="30"
-            height="30"
-            // Disable clicking on the root node
             onClick={nodeDatum.id === 0 ? undefined : () => clickSkillNode(nodeDatum)}
           />
         </g>
@@ -169,13 +172,11 @@ const options = {
     const iconImage = isLearned ? learnIcon : skillIcon;
 
     return (
-      <g transform={`translate(-15,-25)`}>
+      <g transform={`translate(-30,-25)`}>
         <image
           xlinkHref={iconImage}
           alt="Skill Icon"
           className="icon"
-          width="30"
-          height="30"
           onClick={() => clickSkillNode(nodeDatum)}
         />
       </g>
@@ -185,7 +186,7 @@ const options = {
   const renderRectSvgNode = ({ nodeDatum }) => (
     <g>
       <SkillNode nodeDatum={nodeDatum} />
-      <text fill="black" strokeWidth="1" x="20">
+      <text className='text' fill="white" strokeWidth="1" x="20">  
         {nodeDatum.name}
       </text>
     </g>
@@ -208,7 +209,6 @@ const options = {
       console.error('Error calling safeTransferFrom():', error);
     }
   };
-  
 
   // For Initialisation
 
@@ -230,7 +230,7 @@ const options = {
       <section className="output-container">
         {loading ? (
           <div className="loading">
-            <Spin />
+            <img src={Loading} alt="Loading" />
           </div>
         ) : (
           <div>
@@ -240,34 +240,39 @@ const options = {
                 orientation="vertical"
                 translate={{ x: 550, y: 200 }}
                 renderCustomNodeElement={renderRectSvgNode}
-                // draggable={false}
                 zoomable={false}
                 separation={{ siblings: 2, nonSiblings: 2 }}
               />
-              <div className='study_rogress'>
-                {areAllSkillsLearned(createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })) ? (
+              <div className={`study_rogress ${isStudyProgressOpen ? 'open' : ''}`}>
+                {isStudyProgressOpen && (
                   <div className="monster-content">
-                    <p className='ini-egg-text'>Congratulations, You Got It!!!</p>
-                    <img src={monsterNFT} alt="Monster NFT" className="monster-image" />
-                    {/* Todo: connect NTF to wallet (collectNTF)*/}
-                    {isCollected ? 
-                    (
-                      <p className='ini-egg-text'> You have already collect it</p>
+                    {areAllSkillsLearned(createReactD3TreeData({ Skill: props.userInput, SkillID: 0, children: prevSkill })) ? (
+                      <div>
+                        <p className='ini-egg-text'>Congratulations, You Got It!!!</p>
+                        <img src={monsterNFT} alt="Monster NFT" className="monster-image" />
+                        {isCollected ? 
+                        (
+                          <p className='ini-egg-text'> You have already collect it</p>
+                        ) : (
+                          <BigButton onClick={collectNft}> Collect NTF </BigButton>
+                        )}
+                      </div>
                     ) : (
-                      <BigButton onClick={collectNft}> Collect NTF </BigButton>
+                      <div>
+                        <p className='ini-egg-text'>This is Your Initial Egg!!</p>
+                        <br/>
+                        <img src={iniEgg} alt="Initial Egg" className="ini-egg-image" />
+                      </div>
                     )}
-
-                    
-                  </div>
-                ) : (
-                  <div className="monster-content">
-                    <p className='ini-egg-text'>This is Your Initial Egg!!</p>
-                    <br/>
-                    <img src={iniEgg} alt="Initial Egg" className="ini-egg-image" />
                   </div>
                 )}
               </div>
             </div>
+            <img
+              src={Open}
+              className={`toggle-button ${isStudyProgressOpen ? 'open' : ''}`}
+              onClick={toggleStudyProgress}
+            />
           </div>
         )}
       </section>

@@ -54,7 +54,8 @@ body {
 /* Link */
 .nav-links {
   display: flex;
-  margin-left: -55%;
+  width: 700px;
+  margin-left: -650px;
 }
 
 .nav-links a {
@@ -62,7 +63,7 @@ body {
   font-size: 28px;
   color: #fff;
   text-decoration: none;
-  padding: 10px 40px;
+  padding: 40px;
   transition: background-color 0.3s ease-in-out;
 }
 
@@ -71,6 +72,9 @@ body {
   border-radius: 5px;
 }
 
+.user-section {
+  width: 300px;
+}
 
 .user-info {
   display: flex;
@@ -102,23 +106,7 @@ body {
   background-color: #9A53D0;
 }
 
-/* Output Section */
-.output-container {
-text-align: center;
-padding: 50px 0;
-}
-
-.output-heading {
-font-size: 36px;
-margin-bottom: 20px;
-}
-
-.output-text {
-font-size: 18px;
-}
-
 /* Input Section */
-
 .input-select {
 width: 100%;
 padding: 10px;
@@ -142,20 +130,6 @@ border-color: #9A53D0;
   color: #97E3FE;
   font-size: 20px;
   padding: 10px 15px;
-}
-
-.back-btn {
-    background-color: transparent;
-    border: none;
-    color: #F394F8;
-    font-size: 18px;
-    cursor: pointer;
-    transition: color 0.3s ease-in-out;
-    margin-right: 20px;
-}
-
-.back-btn:hover {
-  color: #9A53D0;
 }
 
 /* Adjust the user-info styling */
