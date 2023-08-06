@@ -1,11 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Raleway:ital,wght@0,300;1,300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Raleway:ital,wght@1,300&display=swap');
-.Title {
-    color: #F394F8;
-    font-size: 64px;
-    font-family: 'Orbitron', sans-serif;
-    margin-bottom: 40px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Blender+Pro+Book&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
 .Welcome_Section {
     align-items: center;
@@ -13,17 +7,15 @@
     display: flex;
     flex-direction: column;
 }
-.space {
-    height: 50px; /* or adjust as needed */
-  }
-  
-.intro h2 {
-    background-color: #44ec9e;
-    border-radius: 10px;
-    padding: 25px 10px;
-    margin: 40px 0;
-    font-size: 32px;;
-    margin-bottom: 40px;
-    text-align: left;
-    font-family: "Lucida Console", "Courier New", monospace;
+
+.Title {
+  margin-top: 20px;
+  margin-bottom: 80px;
+  padding: 30px 0;
+  background-repeat: no-repeat;
+}
+
+.intro-heading {
+  font-size: large;
+  margin-top: 180px;
 }

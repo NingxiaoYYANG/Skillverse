@@ -1,24 +1,22 @@
-// React content
 import React from "react";
 import {
-    Routes,
-    Route,
-    useNavigate,
-  } from 'react-router-dom';
+  Routes,
+  Route,
+  useNavigate,
+  Link
+} from 'react-router-dom';
 
-
-// Web3 content
 import Web3 from "web3";
 
 // Components
 import Welcome from "./components/Welcome";
 import BigButton from "./components/BigButton";
-
-// Pages
+import logo from "./Background/Skillverse.png";
+import profile from "./Background/profile.png";
 import Output from './pages/Output.jsx';
 import Input from './pages/Input.jsx';
 
-
+import './Site.css'
 
 function Site() {
   const [userWalletAddress, setUserWalletAddress] = React.useState(null);
@@ -27,13 +25,11 @@ function Site() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    // 初始化UserInput
     const hasInput = localStorage.getItem('userInput');
 
     if (hasInput) {
       setUserInput(hasInput);
     }
-
 
     async function load() {
       if (window.ethereum) {
@@ -85,37 +81,39 @@ function Site() {
     document.title = "Web3 Dashboard";
   };
 
-
   const monsterInputBtn = () => {
     navigate('/monster-input');
   }
   
-
   return (
-    <div>
-        <nav className="navbar">
+    <div className="site-container">
+      <nav className="navbar">
+        <div className="navbar-content">
+          <Link to="/" className="logo">
+            <img src={logo} alt="Skillverse Logo" className="logo" />
+          </Link>
+          <div className="nav-links">
+            <Link to="/about" className="about">ABOUT US</Link>
+            <Link to="/features" className="features">FEATURES</Link>
+            <Link to="/premium" className="premium">PREMIUM</Link>
+          </div>
+          <div className="user-section">
             {userWalletAddress ? (
-            <>
-                <h1 className="admin_title">Web3 Dashboard</h1>
-                <p className="admin_info">
-                Current wallet address: <span>{userWalletAddress}</span>
-                </p>
-                <BigButton onClick={logout}>Logout</BigButton>
-            </>
+              <div className="user-info">
+                <img src={profile} alt="Profile" className="profile" />
+                <BigButton className="logout-btn" onClick={logout}>DISCONNECT</BigButton>
+              </div>
             ) : (
-            <>
-                <h1 className="admin_title">Web3 Login</h1>
-                <p className="admin_info">Please install MetaMask</p>
-                <p className="admin_info">or any Ethereum Extension Wallet</p>
-                <BigButton onClick={loginWithEth}>Login with Ethereum</BigButton>
-            </>
+              <BigButton className="login-btn" onClick={loginWithEth}>CONNECT A WALLET</BigButton>
             )}
-        </nav>
-        <Routes>
-            <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} userConnected={userWalletAddress}/>} />
-            <Route path='/monster-output' element={<Output userInput={userInput} userWalletAddress={userWalletAddress}/>} />
-            <Route path='/monster-input' element={<Input setUserInputFn={setUserInput}/>} />
-        </Routes>
+          </div>
+        </div>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Welcome monsterInputBtnFn={monsterInputBtn} userConnected={userWalletAddress} />} />
+        <Route path='/monster-output' element={<Output userInput={userInput} userWalletAddress={userWalletAddress} />} />
+        <Route path='/monster-input' element={<Input setUserInputFn={setUserInput} />} />
+      </Routes>
     </div>
   );
 }
