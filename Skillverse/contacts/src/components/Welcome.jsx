@@ -12,7 +12,7 @@ const Welcome = (props) => {
       <h1 className='Title'>
         <img src={Title} alt="Title" />
       </h1>
-      {props.userConnected && ( /* 仅在 userConnected 为 true 时显示按钮 */
+      {props.userConnected && ( /* Only show button when userConnected is true */
         <BigButton onClick={props.monsterInputBtnFn}>START </BigButton>
       )}
       <div className="space"></div>

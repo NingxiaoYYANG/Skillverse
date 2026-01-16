@@ -117,4 +117,36 @@ Tree {
   bottom: 0;
   left: 0;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filtered-skills-list {
+  position: absolute;
+  bottom: 120px;
+  left: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  color: white;
+  z-index: 10;
+}
+
+.filtered-skills-list h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.filtered-skills-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.filtered-skills-list li {
+  padding: 5px 0;
+  font-size: 14px;
 }
